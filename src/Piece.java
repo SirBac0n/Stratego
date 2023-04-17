@@ -10,7 +10,7 @@ public class Piece {
      * @param teamName name of the team
      */
     public void setTeamName(String teamName) {
-
+        this.teamName = teamName;
     }
 
     /**
