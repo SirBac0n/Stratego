@@ -26,7 +26,7 @@ public class Piece {
      * @return the name of the team
      */
     public String getTeamName() {
-        return null;
+        return teamName;
     }
 
     /**
@@ -34,7 +34,7 @@ public class Piece {
      * @return the value of the piece
      */
     public int getValue() {
-        return -1;
+        return value;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Piece {
      * @return if the piece is movable
      */
     public boolean isMovable() {
-        return false;
+        return movable;
     }
 
     /**
