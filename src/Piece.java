@@ -51,6 +51,13 @@ public class Piece {
      * @param value value of the piece
      */
     public Piece(String teamName, int value) {
-
+        this.value = value;
+        this.teamName = teamName;
+        //im thinking of representing the flag as a 0 and bombs as -1 but am open to changing it
+        if (value == 0 || value == -1) {
+            movable = false;
+        } else {
+            movable = true;
+        }
     }
 }
