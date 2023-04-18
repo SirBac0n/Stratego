@@ -18,7 +18,7 @@ public class Piece {
      * @param value the value of the piece
      */
     public void setValue(int value) {
-
+        this.value = value;
     }
 
     /**
