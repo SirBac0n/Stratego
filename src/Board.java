@@ -22,7 +22,7 @@ public class Board {
      * @return if the space is empty or not
      */
     public boolean isFilled(int row, int col) {
-        return false;
+        return board.get(col).get(row) != null;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class Board {
      * @return the location of the piece
      */
     public Piece getPiece(int row, int col) {
-        return board.get(row).get(col);
+        return board.get(col).get(row);
     }
 
     /**
@@ -69,6 +69,15 @@ public class Board {
      * @throws IllegalArgumentException if the parameters are invalid
      */
     public void setPiece(Piece p, int row, int col) throws IllegalArgumentException {
-
+        if (row < 0 || row > 9) {
+            throw new IllegalArgumentException("Invalid row index");
+        } else if (col < 0 || col > 9) {
+            throw new IllegalArgumentException("Invalid column index");
+        } else if (isFilled(row, col)) {
+            throw new IllegalArgumentException("Space on the board is already filled");
+        } else {
+            Piece piece = getPiece(row, col);
+            piece = p;
+        }
     }
 }
