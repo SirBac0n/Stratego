@@ -58,7 +58,7 @@ public class Board {
      * @return the location of the piece
      */
     public Piece getPiece(int row, int col) {
-        return null;
+        return board.get(row).get(col);
     }
 
     /**
