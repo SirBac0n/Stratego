@@ -51,6 +51,8 @@ public class Piece {
      * @param value value of the piece
      */
     public Piece(String teamName, int value) {
+        //Keith: I don't know if we need our setters because we can just do this inside the constructor
+        // and we will never need to reset it.
         this.value = value;
         this.teamName = teamName;
         //im thinking of representing the flag as a 0 and bombs as -1 but am open to changing it
