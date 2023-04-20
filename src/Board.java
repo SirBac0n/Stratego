@@ -8,11 +8,58 @@ public class Board {
 
     private LinkedList<Piece> startingPieces2;
 
+    private String player1;
+    private String player2;
+
     /**
      * the board constructor
      */
-    public Board() {
+    public Board(String player1, String player2) {
+        this.player1 = player1;
+        this.player2 = player2;
 
+        startingPieces1 = initializeStartingPieces(this.player1);
+        startingPieces2 = initializeStartingPieces(this.player2);
+
+        //Still need to ask where the starting pieces go
+    }
+
+    /**
+     * This method is used in the constructor to create the linked list of the pieces that need to be placed on the board
+     * @param player the name of the player that these pieces will belong to
+     * @return
+     */
+    private LinkedList<Piece> initializeStartingPieces(String player) {
+        LinkedList<Piece> startingPieces = new LinkedList<>();
+        startingPieces.add(new Piece(player,0));
+        for (int i = 0; i < 6; i++) {
+            startingPieces.add(new Piece(player, -1));
+        }
+        startingPieces.add(new Piece(player, 1));
+        for (int i = 0; i < 8; i++) {
+            startingPieces.add(new Piece(player, 2));
+        }
+        for (int i = 0; i < 5; i++) {
+            startingPieces.add(new Piece(player, 3));
+        }
+        for (int i = 0; i < 4; i++) {
+            startingPieces.add(new Piece(player, 4));
+        }
+        for (int i = 0; i < 4; i++) {
+            startingPieces.add(new Piece(player, 5));
+        }
+        for (int i = 0; i < 4; i++) {
+            startingPieces.add(new Piece(player, 6));
+        }
+        for (int i = 0; i < 3; i++) {
+            startingPieces.add(new Piece(player, 7));
+        }
+        startingPieces.add(new Piece(player, 8));
+        startingPieces.add(new Piece(player, 8));
+        startingPieces.add(new Piece(player, 9));
+        startingPieces.add(new Piece(player, 10));
+
+        return startingPieces;
     }
 
     /**
