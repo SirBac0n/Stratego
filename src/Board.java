@@ -21,6 +21,28 @@ public class Board {
         startingPieces1 = initializeStartingPieces(this.player1);
         startingPieces2 = initializeStartingPieces(this.player2);
 
+        //initializing the board
+        board = new ArrayList<ArrayList<Piece>>();
+        for (int i = 0; i < 10; i++) {
+            ArrayList<Piece> col = new ArrayList<>(10);
+            for (int j = 0; j < 10; j++) {
+                col.add(null);
+            }
+            board.add(col);
+        }
+
+        //putting obstacles on the board
+        for (int i = 2; i < 7; i++) {
+            for (int j = 4; j < 6; j++) {
+                if (i == 4 || i == 5) {
+                    continue;
+                } else {
+                    Piece obstacle = new Piece("Obstacle", -2);
+                    setPiece(obstacle, j, i);
+                }
+            }
+        }
+
         //Still need to ask where the starting pieces go
     }
 
@@ -48,6 +70,7 @@ public class Board {
         for (int i = 0; i < 4; i++) {
             startingPieces.add(new Piece(player, 5));
         }
+        //im only counting 39 pieces not 40, one website said there are 5 captains instead of 4
         for (int i = 0; i < 4; i++) {
             startingPieces.add(new Piece(player, 6));
         }
@@ -125,7 +148,6 @@ public class Board {
         } else {
             Piece piece = getPiece(row, col);
             piece = p;
-            //testing
         }
     }
 }
