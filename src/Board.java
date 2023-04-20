@@ -78,6 +78,7 @@ public class Board {
         } else {
             Piece piece = getPiece(row, col);
             piece = p;
+            //testing
         }
     }
 }
