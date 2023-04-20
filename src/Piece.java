@@ -6,22 +6,6 @@ public class Piece {
     private boolean movable;
 
     /**
-     * sets the name of the team that the piece belongs to
-     * @param teamName name of the team
-     */
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    /**
-     * sets the value of the piece
-     * @param value the value of the piece
-     */
-    public void setValue(int value) {
-        this.value = value;
-    }
-
-    /**
      * gets the name of the team
      * @return the name of the team
      */
