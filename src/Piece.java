@@ -46,4 +46,16 @@ public class Piece {
             movable = true;
         }
     }
+
+    /**
+     * copies the variables of a piece over to another piece
+     * @param p the piece to copy from
+     */
+    public void copy(Piece p) {
+        if (p != null) {
+            teamName = p.teamName;
+            value = p.value;
+            movable = p.movable;
+        }
+    }
 }

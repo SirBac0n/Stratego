@@ -26,7 +26,10 @@ public class Board {
         for (int i = 0; i < 10; i++) {
             ArrayList<Piece> col = new ArrayList<>(10);
             for (int j = 0; j < 10; j++) {
-                col.add(null);
+                //was originally going to make empty spaces null but it didnt seem to be working the way
+                // I wanted it to. if you have a better idea go for it
+                Piece empty = new Piece("Empty", -3);
+                col.add(empty);
             }
             board.add(col);
         }
@@ -92,7 +95,7 @@ public class Board {
      * @return if the space is empty or not
      */
     public boolean isFilled(int row, int col) {
-        return board.get(col).get(row) != null;
+        return board.get(col).get(row).getValue() != -3;
     }
 
     @Override
@@ -146,8 +149,9 @@ public class Board {
         } else if (isFilled(row, col)) {
             throw new IllegalArgumentException("Space on the board is already filled");
         } else {
-            Piece piece = getPiece(row, col);
-            piece = p;
+            //the only way I could figure out how to implement this was by making a copy method
+            //if you can think of a better way of doing this feel free to change it
+            getPiece(row, col).copy(p);
         }
     }
 }
