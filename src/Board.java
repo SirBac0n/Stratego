@@ -35,18 +35,19 @@ public class Board {
         }
 
         //putting obstacles on the board
-        for (int i = 2; i < 7; i++) {
+        for (int i = 2; i < 8; i++) {
             for (int j = 4; j < 6; j++) {
                 if (i == 4 || i == 5) {
                     continue;
                 } else {
                     Piece obstacle = new Piece("Obstacle", -2);
-                    setPiece(obstacle, j, i);
+                    setPiece(obstacle, i, j);
                 }
             }
         }
 
         //Still need to ask where the starting pieces go
+
     }
 
     /**
@@ -100,8 +101,18 @@ public class Board {
 
     @Override
     public String toString() {
+        //All the pieces get displayed as their value number except 10s ("0"), bombs ("B"), flags ("F"), and obstacles (" ").
         StringBuilder sb = new StringBuilder();
-        for (ArrayList<Piece> rowList : board) {
+        sb.append("    ");
+        for (int i = 0; i < 10; i++) {
+            sb.append(i + " ");
+        }
+        sb.append("\n");
+        //____________________-------------------
+        sb.append("    - - - - - - - - - - \n");
+        for (int i = 0; i < board.size(); i++) {
+            ArrayList<Piece> rowList = board.get(i);
+            sb.append(i + " | ");
             for (Piece p : rowList) {
                 if (p.getValue() > 0 && p.getValue() < 10) {
                     sb.append(p.getValue());
@@ -115,13 +126,19 @@ public class Board {
                 else if (p.getValue() == -1) {
                     sb.append("B");
                 }
-                else if (p.getValue() == -3);
+                else if (p.getValue() == -2) {
+                    sb.append(" ");
+                }
+                else if (p.getValue() == -3){
+                    //I found this special dot character that is in the middle of the space for the char
+                    sb.append("·");
+                }
+                sb.append(" ");
              }
             sb.append("\n");
         }
 
-
-        return null;
+        return sb.toString();
     }
 
     /**

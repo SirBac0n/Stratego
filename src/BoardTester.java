@@ -18,4 +18,11 @@ public class BoardTester {
         board.setPiece(test, 7, 2);
         System.out.println(board.isFilled(7,2));
     }
+
+    public static void main(String[] args) {
+        Board b = new Board("Bill","Susan");
+        //b.setPiece(new Piece("Bill",10),9,9);
+        System.out.println(b);
+
+    }
 }
