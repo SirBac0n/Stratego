@@ -48,6 +48,7 @@ public class Board {
 
         //Still need to ask where the starting pieces go
 
+
     }
 
     /**
@@ -187,9 +188,9 @@ public class Board {
         } else if (isFilled(row, col)) {
             throw new IllegalArgumentException("Space on the board is already filled");
         } else {
-            //the only way I could figure out how to implement this was by making a copy method
-            //if you can think of a better way of doing this feel free to change it
-            getPiece(row, col).copy(p);
+            //I looked it up online and found this way to change things in 2D arraylists
+            board.get(row).set(col, p);
+            //getPiece(row, col).copy(p);
         }
     }
 }
