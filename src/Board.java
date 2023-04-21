@@ -17,8 +17,8 @@ public class Board {
         this.player1 = player1;
         this.player2 = player2;
 
-        startingPieces1 = initializeStartingPieces(this.player1);
-        startingPieces2 = initializeStartingPieces(this.player2);
+        startingPieces1 = createLinkedLists(this.player1);
+        startingPieces2 = createLinkedLists(this.player2);
 
         //initializing the board
         board = new ArrayList<ArrayList<Piece>>();
@@ -55,7 +55,9 @@ public class Board {
      * @param player the player whose pieces are being added
      */
     public void setPlayerPieces(String player) {
-        LinkedList<Piece> startingPieces = initializeStartingPieces(player);
+        LinkedList<Piece> startingPieces = createLinkedLists(player);
+        Scanner scan = new Scanner(System.in);
+
 
         //minRow and maxRow are used later on to make sure that the player adds pieces in the part of the board where they are allowed to
         int minRow = -1;
@@ -70,16 +72,19 @@ public class Board {
 
         //keep looping while there are still Pieces in the linkedlist que
         while (startingPieces.size() > 0) {
+            //This scanner takes in a line from the console
+            Scanner lineScan;
+
             //This line removes the Pieces from the que
             Piece p = startingPieces.remove(0);
             System.out.println(this);
             while (true) {
-                Scanner scan = new Scanner(System.in);
                 System.out.println(player + ", your next piece is a " + p.getValue() + ". Where do you want to place it? Enter the row index (" + minRow + " - " + maxRow + ") and a space and then the column index (0-9).");
+                lineScan = new Scanner(scan.nextLine());
                 try {
                     //If they did not input integers, it will cause an error
-                    int row = scan.nextInt();
-                    int col = scan.nextInt();
+                    int row = lineScan.nextInt();
+                    int col = lineScan.nextInt();
 
                     //makes sure that the row entered is valid (for that player)
                     if ((row < minRow) || (row > maxRow))  {
@@ -97,17 +102,18 @@ public class Board {
                 catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
-                scan.close();
             }
+            lineScan.close();
         }
+        scan.close();
     }
 
     /**
      * This method is used in the constructor to create the linked list of the pieces that need to be placed on the board
      * @param player the name of the player that these pieces will belong to
-     * @return
+     * @return this method returns a linked list of all the pieces that still need to be added to the board
      */
-    private LinkedList<Piece> initializeStartingPieces(String player) {
+    private LinkedList<Piece> createLinkedLists(String player) {
         LinkedList<Piece> startingPieces = new LinkedList<>();
         startingPieces.add(new Piece(player,0));
         for (int i = 0; i < 6; i++) {
@@ -148,7 +154,7 @@ public class Board {
      * @return if the space is empty or not
      */
     public boolean isFilled(int row, int col) {
-        return board.get(col).get(row).getValue() != -3;
+        return board.get(row).get(col).getValue() != -3;
     }
 
     @Override
