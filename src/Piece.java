@@ -39,7 +39,8 @@ public class Piece {
         this.teamName = teamName;
 
         //This makes Obstacles have a false movable value as well.
-        movable = (value > 0);
+        movable = (value > 0) || (value == -3);
+
 
     }
 
