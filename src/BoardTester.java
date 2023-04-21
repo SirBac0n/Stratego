@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.Scanner;
+
 public class BoardTester {
     @Test
     public void isFilledTester() {
@@ -20,8 +22,11 @@ public class BoardTester {
     }
 
     public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        //System.out.println(scn.nextInt(f));
         Board b = new Board("Bill","Susan");
-        //b.setPiece(new Piece("Bill",10),9,9);
+        b.setPlayerPieces("Bill");
+        b.setPiece(new Piece("Bill",10),9,9);
         System.out.println(b);
 
     }

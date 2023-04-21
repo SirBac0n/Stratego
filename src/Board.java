@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Board {
     private ArrayList<ArrayList<Piece>> board;
@@ -41,7 +40,7 @@ public class Board {
                     continue;
                 } else {
                     Piece obstacle = new Piece("Obstacle", -2);
-                    setPiece(obstacle, i, j);
+                    setPiece(obstacle, j, i);
                 }
             }
         }
@@ -49,6 +48,58 @@ public class Board {
         //Still need to ask where the starting pieces go
 
 
+    }
+
+    /**
+     * This method can be called at the beginning of a game to find the
+     * @param player the player whose pieces are being added
+     */
+    public void setPlayerPieces(String player) {
+        LinkedList<Piece> startingPieces = initializeStartingPieces(player);
+
+        //minRow and maxRow are used later on to make sure that the player adds pieces in the part of the board where they are allowed to
+        int minRow = -1;
+        int maxRow = -1;
+        if (player1.equals(player)) {
+            minRow = 0;
+            maxRow = 3;
+        } else if (player2.equals(player)) {
+            minRow = 6;
+            maxRow = 9;
+        }
+
+        //keep looping while there are still Pieces in the linkedlist que
+        while (startingPieces.size() > 0) {
+            //This line removes the Pieces from the que
+            Piece p = startingPieces.remove(0);
+            System.out.println(this);
+            while (true) {
+                Scanner scan = new Scanner(System.in);
+                System.out.println(player + ", your next piece is a " + p.getValue() + ". Where do you want to place it? Enter the row index (" + minRow + " - " + maxRow + ") and a space and then the column index (0-9).");
+                try {
+                    //If they did not input integers, it will cause an error
+                    int row = scan.nextInt();
+                    int col = scan.nextInt();
+
+                    //makes sure that the row entered is valid (for that player)
+                    if ((row < minRow) || (row > maxRow))  {
+                        throw new IndexOutOfBoundsException("Invalid row index");
+                    }
+
+                    //If the columns are invalid or if the space is already taken, this will cause an error
+                    setPiece(p,row,col);
+
+                    break;
+                }
+                catch (NoSuchElementException e) {
+                    System.out.println("Invalid row or column.");
+                }
+                catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+                scan.close();
+            }
+        }
     }
 
     /**
