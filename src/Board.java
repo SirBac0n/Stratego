@@ -100,6 +100,27 @@ public class Board {
 
     @Override
     public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (ArrayList<Piece> rowList : board) {
+            for (Piece p : rowList) {
+                if (p.getValue() > 0 && p.getValue() < 10) {
+                    sb.append(p.getValue());
+                }
+                else if (p.getValue() == 10) {
+                    sb.append(0);
+                }
+                else if (p.getValue() == 0) {
+                    sb.append("F");
+                }
+                else if (p.getValue() == -1) {
+                    sb.append("B");
+                }
+                else if (p.getValue() == -3);
+             }
+            sb.append("\n");
+        }
+
+
         return null;
     }
 
