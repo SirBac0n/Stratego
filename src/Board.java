@@ -236,12 +236,12 @@ public class Board {
             return false;
         }
         for (int i = 0; i < 3; i++) {
-            try {
-                if (board.get(i-1+row).get(-1+col).getValue() == -3) {
-                    return true;
-                }
-            } catch (IndexOutOfBoundsException e) {}
+            //Condition is not right
+            if ((row >= 0) && (row <= 9) && (col >= 0) && (col <= 9) && board.get(i-1+row).get(-1+col).getValue() == -3) {
+                return true;
+            }
         }
+
         //I will keep working on this. There is also probably a better way to do it that I will think about.
         return false;
     }
