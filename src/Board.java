@@ -3,9 +3,9 @@ import java.util.*;
 public class Board {
     private ArrayList<ArrayList<Piece>> board;
 
-    private LinkedList<Piece> startingPieces1;
+    //private LinkedList<Piece> startingPieces1;
 
-    private LinkedList<Piece> startingPieces2;
+    //private LinkedList<Piece> startingPieces2;
 
     private String player1;
     private String player2;
@@ -17,8 +17,8 @@ public class Board {
         this.player1 = player1;
         this.player2 = player2;
 
-        startingPieces1 = createLinkedLists(this.player1);
-        startingPieces2 = createLinkedLists(this.player2);
+        //startingPieces1 = createLinkedLists(this.player1);
+        //startingPieces2 = createLinkedLists(this.player2);
 
         //initializing the board
         board = new ArrayList<ArrayList<Piece>>();
@@ -44,10 +44,6 @@ public class Board {
                 }
             }
         }
-
-        //Still need to ask where the starting pieces go
-
-
     }
 
     /**
@@ -204,6 +200,11 @@ public class Board {
      * @return if there are any movable pieces left
      */
     public boolean movablePiecesLeft() {
+        for (int row = 0; row < board.size(); row++) {
+            for (int col = 0; col < board.get(0).size(); col++) {
+
+            }
+        }
         return false;
     }
 
@@ -228,6 +229,21 @@ public class Board {
      */
     public Piece getPiece(int row, int col) {
         return board.get(col).get(row);
+    }
+
+    private boolean canMovePiece(int row, int col) {
+        if (!board.get(row).get(col).isMovable()) {
+            return false;
+        }
+        for (int i = 0; i < 3; i++) {
+            try {
+                if (board.get(i-1+row).get(-1+col).getValue() == -3) {
+                    return true;
+                }
+            } catch (IndexOutOfBoundsException e) {}
+        }
+        //I will keep working on this. There is also probably a better way to do it that I will think about.
+        return false;
     }
 
     /**
