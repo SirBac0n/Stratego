@@ -1,6 +1,10 @@
 public class Piece {
     private String teamName;
 
+    //Flags have value of 0
+    //Bombs have value of -1
+    //Obstacles have value of -2
+    //Empty spaces have value of -3
     private int value;
 
     private boolean movable;
