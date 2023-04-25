@@ -3,10 +3,6 @@ import java.util.*;
 public class Board {
     private ArrayList<ArrayList<Piece>> board;
 
-    //private LinkedList<Piece> startingPieces1;
-
-    //private LinkedList<Piece> startingPieces2;
-
     private String player1;
     private String player2;
 
@@ -150,7 +146,7 @@ public class Board {
      * @return if the space is empty or not
      */
     public boolean isFilled(int row, int col) {
-        return board.get(row).get(col).getValue() != -3;
+        return getPiece(row, col).getValue() != -3;
     }
 
     @Override
@@ -159,14 +155,14 @@ public class Board {
         StringBuilder sb = new StringBuilder();
         sb.append("    ");
         for (int i = 0; i < 10; i++) {
-            sb.append(i + " ");
+            sb.append(i).append(" ");
         }
         sb.append("\n");
         //____________________-------------------
         sb.append("    - - - - - - - - - - \n");
         for (int i = 0; i < board.size(); i++) {
             ArrayList<Piece> rowList = board.get(i);
-            sb.append(i + " | ");
+            sb.append(i).append(" | ");
             for (Piece p : rowList) {
                 if (p.getValue() > 0 && p.getValue() < 10) {
                     sb.append(p.getValue());
@@ -202,7 +198,7 @@ public class Board {
     public boolean movablePiecesLeft() {
         for (int row = 0; row < board.size(); row++) {
             for (int col = 0; col < board.get(0).size(); col++) {
-
+                if (canMovePiece(row,col)) {return true;}
             }
         }
         return false;
@@ -228,21 +224,49 @@ public class Board {
      * @return the location of the piece
      */
     public Piece getPiece(int row, int col) {
-        return board.get(col).get(row);
+        return board.get(row).get(col);
     }
 
+    /**
+     * This method takes a row and column on the board and finds out if the piece at that position can be moved
+     * @param row the row of the piece
+     * @param col the column of the piece
+     * @return whether the piece can be moved or not
+     */
     private boolean canMovePiece(int row, int col) {
-        if (!board.get(row).get(col).isMovable()) {
+        Piece p = getPiece(row,col);
+
+        //If the piece is an immovable piece (bomb or flag) return false
+        if (!getPiece(row,col).isMovable()) {
             return false;
         }
+
+        int thisRow;
+        int thisCol;
+
+        //If a movable spot is found, return true
+        //Checks first column to the left of piece
         for (int i = 0; i < 3; i++) {
-            //Condition is not right
-            if ((row >= 0) && (row <= 9) && (col >= 0) && (col <= 9) && board.get(i-1+row).get(-1+col).getValue() == -3) {
-                return true;
-            }
+            thisRow = i-1+row;
+            thisCol = -1 + col;
+            if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (thisCol <= 9) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())){return true;}
         }
 
-        //I will keep working on this. There is also probably a better way to do it that I will think about.
+        //Checks the spaces above and below the piece
+        thisRow = row - 1;
+        thisCol = col;
+        if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (thisCol <= 9) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
+
+        thisRow = row + 1;
+        if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
+
+        //Checks the column to the right of the piece
+        for (int i = 0; i < 3; i++) {
+            thisRow = i-1+row;
+            thisCol = 1 + col;
+            if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
+        }
+
         return false;
     }
 
