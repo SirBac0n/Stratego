@@ -244,7 +244,94 @@ public class Board {
         int thisRow;
         int thisCol;
 
-        //If a movable spot is found, return true
+        //this is my attempt, it looks long and ugly. if you can think of a better way of doing this feel free to change it
+
+        //checks corners
+        if (row == 0 && col == 0) {
+            //checks adjacent spaces and returns true if the space is empty or there is an opponents piece
+            if (!isFilled(0,1) || !getPiece(0,1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(1,0) || !getPiece(1,0).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (row == 9 && col == 0) {
+            if (!isFilled(8, 0) || !getPiece(8,0).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(9,1) || !getPiece(9,1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (row == 0 && col == 9) {
+            if (!isFilled(0,8) || !getPiece(0,8).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(1,9) || !getPiece(1,9).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (row == 9 && col == 9) {
+            if (!isFilled(8,9) || !getPiece(8,9).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(9,8) || !getPiece(9,8).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        }
+        //checks the edges of the board
+        else if (row == 0) {
+            if (!isFilled(0,col - 1) || !getPiece(0,col - 1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(0,col + 1) || !getPiece(0,col + 1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(1,col) || !getPiece(1,col).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (row == 9) {
+            if (!isFilled(9,col - 1) || !getPiece(9,col - 1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(9,col + 1) || !getPiece(9,col + 1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(8,col) || !getPiece(8,col).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (col == 0) {
+            if (!isFilled(row - 1,0) || !getPiece(row - 1,0).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(row + 1,0) || !getPiece(row + 1,0).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(row,1) || !getPiece(row,1).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        } else if (col == 9) {
+            if (!isFilled(row - 1,9) || !getPiece(row - 1,9).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(row + 1,9) || !getPiece(row + 1,9).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+            if (!isFilled(row,8) || !getPiece(row,8).getTeamName().equals(p.getTeamName())) {
+                return true;
+            }
+        }
+        //base case
+        else if (!isFilled(row - 1, col) || !getPiece(row - 1,col).getTeamName().equals(p.getTeamName())) {
+            return true;
+        }
+        if (!isFilled(row, col - 1) || !getPiece(row,col - 1).getTeamName().equals(p.getTeamName())) {
+            return true;
+        }
+        if (!isFilled(row, col + 1) || !getPiece(row,col + 1).getTeamName().equals(p.getTeamName())) {
+            return true;
+        }
+        return !isFilled(row + 1, col) || !getPiece(row + 1, col).getTeamName().equals(p.getTeamName());
+
+        /*//If a movable spot is found, return true
         //Checks first column to the left of piece
         //do we need to check the columns to the left and right? I dont think pieces can move diagonally
         for (int i = 0; i < 3; i++) {
@@ -266,9 +353,7 @@ public class Board {
             thisRow = i-1+row;
             thisCol = 1 + col;
             if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
-        }
-
-        return false;
+        }*/
     }
 
     /**

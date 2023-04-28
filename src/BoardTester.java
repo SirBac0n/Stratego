@@ -2,6 +2,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class BoardTester {
     @Test
     public void isFilledTester() {
@@ -35,14 +38,24 @@ public class BoardTester {
     public void canMovePieceTester() {
         Board b = new Board("Bob", "Joe");
         Piece p = new Piece("Bob", 4);
+        //tests corner
         b.setPiece(p, 0, 0);
+        //tests edge
         b.setPiece(p, 0,2);
         b.setPiece(p,0,3);
         b.setPiece(p,0,4);
         b.setPiece(p,1,3);
+        //tests base case
+        b.setPiece(p,7,4);
+        b.setPiece(p,8, 3);
+        b.setPiece(p,8,4);
+        b.setPiece(p,8,5);
+        b.setPiece(p,9,4);
+
         //made canMovePiece public for now just to test it
         //it doesnt seem to be able to check edges yet
-        System.out.println(b.canMovePiece(0,0));
-        System.out.println(b.canMovePiece(0,3));
+        assertTrue(b.canMovePiece(0,0));
+        assertFalse(b.canMovePiece(0,3));
+        assertFalse(b.canMovePiece(8,4));
     }
 }
