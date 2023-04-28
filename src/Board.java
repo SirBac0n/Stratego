@@ -71,7 +71,7 @@ public class Board {
             Piece p = startingPieces.remove(0);
             System.out.println(this);
             while (true) {
-                System.out.println(player + ", your next piece is a " + p.getValue() + ". Where do you want to place it? Enter the row index (" + minRow + " - " + maxRow + ") and a space and then the column index (0-9).");
+                System.out.println(player + ", your next piece is a " + p.getPieceName() + ". Where do you want to place it? Enter the row index (" + minRow + " - " + maxRow + ") and a space and then the column index (0-9).");
                 lineScan = new Scanner(scan.nextLine());
                 try {
                     //If they did not input integers, it will cause an error

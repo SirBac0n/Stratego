@@ -1,3 +1,5 @@
+import java.util.SplittableRandom;
+
 public class Piece {
     private String teamName;
 
@@ -71,6 +73,14 @@ public class Piece {
             case 10 -> "Marshal";
             default -> "";
         };
+    }
+
+    /**
+     * gets the name of the piece
+     * @return the name of the piece
+     */
+    public String getPieceName() {
+        return pieceName;
     }
 
 }
