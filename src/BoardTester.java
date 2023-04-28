@@ -30,4 +30,19 @@ public class BoardTester {
         System.out.println(b);
 
     }
+
+    @Test
+    public void canMovePieceTester() {
+        Board b = new Board("Bob", "Joe");
+        Piece p = new Piece("Bob", 4);
+        b.setPiece(p, 0, 0);
+        b.setPiece(p, 0,2);
+        b.setPiece(p,0,3);
+        b.setPiece(p,0,4);
+        b.setPiece(p,1,3);
+        //made canMovePiece public for now just to test it
+        //it doesnt seem to be able to check edges yet
+        System.out.println(b.canMovePiece(0,0));
+        System.out.println(b.canMovePiece(0,3));
+    }
 }

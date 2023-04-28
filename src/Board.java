@@ -233,7 +233,7 @@ public class Board {
      * @param col the column of the piece
      * @return whether the piece can be moved or not
      */
-    private boolean canMovePiece(int row, int col) {
+    public boolean canMovePiece(int row, int col) {
         Piece p = getPiece(row,col);
 
         //If the piece is an immovable piece (bomb or flag) return false
@@ -246,6 +246,7 @@ public class Board {
 
         //If a movable spot is found, return true
         //Checks first column to the left of piece
+        //do we need to check the columns to the left and right? I dont think pieces can move diagonally
         for (int i = 0; i < 3; i++) {
             thisRow = i-1+row;
             thisCol = -1 + col;
