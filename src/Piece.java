@@ -48,7 +48,7 @@ public class Piece {
 
         //This makes Obstacles have a false movable value as well.
         //do we want empty pieces to be movable?
-        movable = (value > 0) || (value == -3);
+        movable = value > 0;
         pieceName = setPieceName(value);
     }
 
