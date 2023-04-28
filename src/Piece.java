@@ -9,6 +9,8 @@ public class Piece {
 
     private boolean movable;
 
+    private String pieceName;
+
     /**
      * gets the name of the team
      * @return the name of the team
@@ -43,20 +45,32 @@ public class Piece {
         this.teamName = teamName;
 
         //This makes Obstacles have a false movable value as well.
+        //do we want empty pieces to be movable?
         movable = (value > 0) || (value == -3);
-
-
+        pieceName = setPieceName(value);
     }
 
     /**
-     * copies the variables of a piece over to another piece
-     * @param p the piece to copy from
+     * method to set the name of the piece based on the value of the piece
+     * @param value value of the piece
+     * @return the name of the piece
      */
-    public void copy(Piece p) {
-        if (p != null) {
-            teamName = p.teamName;
-            value = p.value;
-            movable = p.movable;
-        }
+    public String setPieceName(int value) {
+        return switch (value) {
+            case -1 -> "Bomb";
+            case 0 -> "Flag";
+            case 1 -> "Spy";
+            case 2 -> "Scout";
+            case 3 -> "Miner";
+            case 4 -> "Sergeant";
+            case 5 -> "Lieutenant";
+            case 6 -> "Captain";
+            case 7 -> "Major";
+            case 8 -> "Colonel";
+            case 9 -> "General";
+            case 10 -> "Marshal";
+            default -> "";
+        };
     }
+
 }

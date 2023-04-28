@@ -58,4 +58,11 @@ public class BoardTester {
         assertFalse(b.canMovePiece(0,3));
         assertFalse(b.canMovePiece(8,4));
     }
+
+    @Test
+    public void movablePiecesLeftTester() {
+        Board b = new Board("Bob", "Joe");
+        assertTrue(b.movablePiecesLeft());
+    }
+
 }

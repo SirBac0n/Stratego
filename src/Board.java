@@ -323,10 +323,10 @@ public class Board {
         else if (!isFilled(row - 1, col) || !getPiece(row - 1,col).getTeamName().equals(p.getTeamName())) {
             return true;
         }
-        if (!isFilled(row, col - 1) || !getPiece(row,col - 1).getTeamName().equals(p.getTeamName())) {
+        else if (!isFilled(row, col - 1) || !getPiece(row,col - 1).getTeamName().equals(p.getTeamName())) {
             return true;
         }
-        if (!isFilled(row, col + 1) || !getPiece(row,col + 1).getTeamName().equals(p.getTeamName())) {
+        else if (!isFilled(row, col + 1) || !getPiece(row,col + 1).getTeamName().equals(p.getTeamName())) {
             return true;
         }
         return !isFilled(row + 1, col) || !getPiece(row + 1, col).getTeamName().equals(p.getTeamName());
