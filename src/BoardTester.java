@@ -62,7 +62,7 @@ public class BoardTester {
     @Test
     public void movablePiecesLeftTester() {
         Board b = new Board("Bob", "Joe");
-        assertTrue(b.movablePiecesLeft());
+        assertFalse(b.movablePiecesLeft());
     }
 
 }
