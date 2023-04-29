@@ -213,7 +213,7 @@ public class Board {
      * @param col2 column that the piece will be moved to
      * @throws IllegalArgumentException if the parameters are invalid
      */
-    public void move(String currentPlayer, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
+    public void move(String currentPlayer, String opponent, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
         if (row1 < 0 || row1 > 9 || col1 < 0 || col1 > 9) {
             throw new IllegalArgumentException("Invalid board position");
         }
@@ -228,7 +228,13 @@ public class Board {
         } else if (!current.getTeamName().equals(currentPlayer)) {
             throw new IllegalArgumentException("That is not one of your pieces");
         } else {
-            //still need to finish this
+            if (newLocation.getTeamName().equals(opponent)) {
+                attack(row1, col1, row2, col1);
+            } else {
+                Piece empty = new Piece("Empty",-3);
+                board.get(row2).set(col2, current);
+                board.get(row1).set(col1, empty);
+            }
         }
     }
 
