@@ -373,7 +373,38 @@ public class Board {
         } else {
             //I looked it up online and found this way to change things in 2D arraylists
             board.get(row).set(col, p);
-            //getPiece(row, col).copy(p);
+        }
+    }
+
+    /**
+     * method that simulates an attack by two pieces
+     * @param attackerRow row that the attacker is located in
+     * @param attackerCol column that the attacker is located in
+     * @param defenderRow row that the defender is located in
+     * @param defenderCol column that the defender is located in
+     */
+    public void attack(int attackerRow, int attackerCol, int defenderRow, int defenderCol) {
+        Piece attacker = getPiece(attackerRow, attackerCol);
+        Piece defender = getPiece(defenderRow, defenderCol);
+        Piece empty = new Piece("Empty", -3);
+        if (attacker.getValue() == 1 && defender.getValue() == 10) {
+            board.get(defenderRow).set(defenderCol, attacker);
+            board.get(attackerRow).set(attackerCol, empty);
+        } else if (defender.getValue() == -1 && attacker.getValue() != 3) {
+            board.get(attackerRow).set(attackerCol, empty);
+        } else if (defender.getValue() == -1 && attacker.getValue() == 3) {
+            board.get(defenderRow).set(defenderCol, attacker);
+            board.get(attackerRow).set(attackerCol, empty);
+        } else if (attacker.getValue() > defender.getValue()) {
+            board.get(defenderRow).set(defenderCol, attacker);
+            board.get(attackerRow).set(attackerCol, empty);
+        } else if (attacker.getValue() < defender.getValue()) {
+            board.get(attackerRow).set(attackerCol, empty);
+        }
+        //if they are equal both pieces are removed
+        else {
+            board.get(attackerRow).set(attackerCol, empty);
+            board.get(defenderRow).set(defenderCol, empty);
         }
     }
 }
