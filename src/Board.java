@@ -398,7 +398,7 @@ public class Board {
     }
 
     /**
-     * method that simulates an attack by two pieces
+     * method that simulates an attack between two pieces
      * @param attackerRow row that the attacker is located in
      * @param attackerCol column that the attacker is located in
      * @param defenderRow row that the defender is located in
