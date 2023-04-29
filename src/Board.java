@@ -214,7 +214,22 @@ public class Board {
      * @throws IllegalArgumentException if the parameters are invalid
      */
     public void move(String currentPlayer, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
-        //will throw some kind of exception
+        if (row1 < 0 || row1 > 9 || col1 < 0 || col1 > 9) {
+            throw new IllegalArgumentException("Invalid board position");
+        }
+        Piece current = getPiece(row1, col1);
+        Piece newLocation = getPiece(row2, col2);
+        if (!canMovePiece(row1, row2)) {
+            throw new IllegalArgumentException("This piece can not be moved");
+        } else if (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1) {
+            throw new IllegalArgumentException("Cannot move the piece to that location");
+        } else if (newLocation.getValue() == -2) {
+            throw new IllegalArgumentException("Cannot move the piece to that location");
+        } else if (!current.getTeamName().equals(currentPlayer)) {
+            throw new IllegalArgumentException("That is not one of your pieces");
+        } else {
+            //still need to finish this
+        }
     }
 
     /**
