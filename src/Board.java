@@ -207,6 +207,7 @@ public class Board {
     /**
      * move the selected piece to the desired location
      * @param currentPlayer the name of the player
+     * @param opponent the name of the opposing player
      * @param row1 original row of the piece to be moved
      * @param col1 original column of the piece to be moved
      * @param row2 row that the piece will be moved to
@@ -219,17 +220,24 @@ public class Board {
         }
         Piece current = getPiece(row1, col1);
         Piece newLocation = getPiece(row2, col2);
-        if (!canMovePiece(row1, row2)) {
+        if (!canMovePiece(row1, col1)) {
             throw new IllegalArgumentException("This piece can not be moved");
-        } else if (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1) {
+        } else if (row1 == row2 && col1 == col2) {
+            throw new IllegalArgumentException("Piece is already in this location");
+        } else if (current.getValue() != 2 && (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1)) {
             throw new IllegalArgumentException("Cannot move the piece to that location");
-        } else if (newLocation.getValue() == -2) {
+        } else if (row1 != row2 && col1 != col2) {
+            throw new IllegalArgumentException("Cannot move the piece diagonally");
+        } else if (current.getValue() == 2 && row1 == row2) {
+            //check to make sure there is nothing in the way
+        }
+        else if (newLocation.getValue() == -2) {
             throw new IllegalArgumentException("Cannot move the piece to that location");
         } else if (!current.getTeamName().equals(currentPlayer)) {
             throw new IllegalArgumentException("That is not one of your pieces");
         } else {
             if (newLocation.getTeamName().equals(opponent)) {
-                attack(row1, col1, row2, col1);
+                attack(row1, col1, row2, col2);
             } else {
                 Piece empty = new Piece("Empty",-3);
                 board.get(row2).set(col2, current);

@@ -53,7 +53,6 @@ public class BoardTester {
         b.setPiece(p,9,4);
 
         //made canMovePiece public for now just to test it
-        //it doesnt seem to be able to check edges yet
         assertTrue(b.canMovePiece(0,0));
         assertFalse(b.canMovePiece(0,3));
         assertFalse(b.canMovePiece(8,4));
@@ -63,6 +62,93 @@ public class BoardTester {
     public void movablePiecesLeftTester() {
         Board b = new Board("Bob", "Joe");
         assertFalse(b.movablePiecesLeft());
+    }
+
+    @Test
+    public void loseBattle() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 4);
+        Piece opponent1 = new Piece("Joe", 6);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertTrue(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void winBattle() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 10);
+        Piece opponent1 = new Piece("Joe", 6);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertTrue(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void tieBattle() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 6);
+        Piece opponent1 = new Piece("Joe", 6);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertFalse(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void loseBomb() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 6);
+        Piece opponent1 = new Piece("Joe", -1);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertTrue(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void defeatBomb() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 3);
+        Piece opponent1 = new Piece("Joe", -1);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertTrue(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void spyVsMarshal() {
+        Board b = new Board("Bob", "Joe");
+        Piece mover = new Piece("Bob", 1);
+        Piece opponent1 = new Piece("Joe", 10);
+        b.setPiece(mover, 0, 0);
+        b.setPiece(opponent1, 0, 1);
+        b.move("Bob", "Joe", 0,0, 0, 1);
+        assertFalse(b.isFilled(0,0));
+        assertTrue(b.isFilled(0,1));
+        System.out.println(b.getPiece(0,1).getTeamName());
+    }
+
+    @Test
+    public void moveDiagonal() {
+        Board b = new Board("Bob", "Joe");
+        Piece p = new Piece("Bob", 4);
+        b.setPiece(p, 0,0);
+        b.move("Bob", "Joe", 0,0,1,1);
+        assertFalse(b.isFilled(1,1));
     }
 
 }
