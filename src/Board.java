@@ -215,34 +215,15 @@ public class Board {
      * @throws IllegalArgumentException if the parameters are invalid
      */
     public void move(String currentPlayer, String opponent, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
-        if (row1 < 0 || row1 > 9 || col1 < 0 || col1 > 9) {
-            throw new IllegalArgumentException("Invalid board position");
-        }
+        checkMoveConditions(currentPlayer, row1, col1, row2, col2);
         Piece current = getPiece(row1, col1);
         Piece newLocation = getPiece(row2, col2);
-        if (!canMovePiece(row1, col1)) {
-            throw new IllegalArgumentException("This piece can not be moved");
-        } else if (row1 == row2 && col1 == col2) {
-            throw new IllegalArgumentException("Piece is already in this location");
-        } else if (current.getValue() != 2 && (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1)) {
-            throw new IllegalArgumentException("Cannot move the piece to that location");
-        } else if (row1 != row2 && col1 != col2) {
-            throw new IllegalArgumentException("Cannot move the piece diagonally");
-        } else if (current.getValue() == 2 && row1 == row2) {
-            //check to make sure there is nothing in the way
-        }
-        else if (newLocation.getValue() == -2) {
-            throw new IllegalArgumentException("Cannot move the piece to that location");
-        } else if (!current.getTeamName().equals(currentPlayer)) {
-            throw new IllegalArgumentException("That is not one of your pieces");
+        if (newLocation.getTeamName().equals(opponent)) {
+            attack(row1, col1, row2, col2);
         } else {
-            if (newLocation.getTeamName().equals(opponent)) {
-                attack(row1, col1, row2, col2);
-            } else {
-                Piece empty = new Piece("Empty",-3);
-                board.get(row2).set(col2, current);
-                board.get(row1).set(col1, empty);
-            }
+            Piece empty = new Piece("Empty",-3);
+            board.get(row2).set(col2, current);
+            board.get(row1).set(col1, empty);
         }
     }
 
@@ -434,6 +415,68 @@ public class Board {
         else {
             board.get(attackerRow).set(attackerCol, empty);
             board.get(defenderRow).set(defenderCol, empty);
+        }
+    }
+
+    /**
+     * checks the piece that is trying to be moved and the space the player is trying to move it to ensuring the move is valid
+     * @param currentPlayer name of the player taking a turn
+     * @param row1 row of the piece that is trying to be moved
+     * @param col1 column of the piece that is trying to be moved
+     * @param row2 row of the location the player is trying to move the piece to
+     * @param col2 column of the location the player is trying to move the piece to
+     * @throws IllegalArgumentException if the attempted move is invalid
+     */
+    public void checkMoveConditions(String currentPlayer, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
+        if (row1 < 0 || row1 > 9 || col1 < 0 || col1 > 9) {
+            throw new IllegalArgumentException("Invalid board position");
+        }
+        if (row2 < 0 || row2 > 9 || col2 < 0 || col2 > 9) {
+            throw new IllegalArgumentException("Invalid location to move to");
+        }
+        Piece current = getPiece(row1, col1);
+        Piece newLocation = getPiece(row2, col2);
+        if (!canMovePiece(row1, col1)) {
+            throw new IllegalArgumentException("This piece can not be moved");
+        } else if (row1 == row2 && col1 == col2) {
+            throw new IllegalArgumentException("Piece is already in this location");
+        } else if (current.getValue() != 2 && (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1)) {
+            throw new IllegalArgumentException("Cannot move the piece to that location");
+        } else if (row1 != row2 && col1 != col2) {
+            throw new IllegalArgumentException("Cannot move the piece diagonally");
+        } else if (current.getValue() == 2 && row1 == row2) {
+            //check to make sure there is nothing in the way
+            if (col1 < col2) {
+                for (int i = col1 + 1; i < col2; i++) {
+                    if (isFilled(row1, i)) {
+                        throw new IllegalArgumentException("There is a piece in the way");
+                    }
+                }
+            } else {
+                for (int i = col2 + 1; i < col1; i++) {
+                    if (isFilled(row1,i)) {
+                        throw new IllegalArgumentException("There is a piece in the way");
+                    }
+                }
+            }
+        } else if (current.getValue() == 2 && col1 == col2) {
+            if (row1 < row2) {
+                for (int i = row1 + 1; i < row2; i++) {
+                    if (isFilled(i, col1)) {
+                        throw new IllegalArgumentException("There is a piece in the way");
+                    }
+                }
+            } else {
+                for (int i = row2 + 1; i < row1; i++) {
+                    if (isFilled(i,col1)) {
+                        throw new IllegalArgumentException("There is a piece in the way");
+                    }
+                }
+            }
+        } else if (newLocation.getValue() == -2) {
+            throw new IllegalArgumentException("Cannot move the piece to that location");
+        } else if (!current.getTeamName().equals(currentPlayer)) {
+            throw new IllegalArgumentException("That is not one of your pieces");
         }
     }
 }

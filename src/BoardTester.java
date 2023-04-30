@@ -151,4 +151,16 @@ public class BoardTester {
         assertFalse(b.isFilled(1,1));
     }
 
+    @Test
+    public void scoutMove() {
+        Board b = new Board("Bob", "Joe");
+        Piece scout = new Piece("Bob", 2);
+        b.setPiece(scout,0,0);
+        b.move("Bob","Joe",0,0,0,5);
+        System.out.println(b.getPiece(0,5).getTeamName());
+        Piece p = new Piece("Bob", 4);
+        b.setPiece(p,0,2);
+        b.move("Bob","Joe",0,5,0,0);
+    }
+
 }
