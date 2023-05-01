@@ -540,7 +540,7 @@ public class Board {
             LinkedList<Piece> pieces2 = createLinkedLists("Joe");
             for (int i = 6; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
-                    Piece p = pieces.remove();
+                    Piece p = pieces2.remove();
                     setPiece(p,i,j);
                 }
             }
