@@ -476,4 +476,51 @@ public class Board {
             throw new IllegalArgumentException("That is not one of your pieces");
         }
     }
+
+    /**
+     * method that checks if the current player has won the game
+     * @param opponent the name of the opponent
+     * @return true if the current player has won the game
+     */
+    public boolean hasWon(String opponent) {
+        //if the opponent has a flag the player has not won yet
+        if (opponent.equals(player1)) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 9; j++) {
+                    Piece p = getPiece(i,j);
+                    if (p.getValue() == 0) {
+                        return false;
+                    }
+                }
+            }
+        } else {
+            for (int i = 6; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    Piece p = getPiece(i,j);
+                    if (p.getValue() == 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * checks to see if the current player can make a move
+     * @param currentPlayer the name of the current player
+     * @return true if the player can make a move
+     */
+    public boolean canPlay(String currentPlayer) {
+        //checks the board for the current player's pieces
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                Piece p = getPiece(i,j);
+                if (p.getTeamName().equals(currentPlayer) && canMovePiece(i,j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
