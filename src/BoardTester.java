@@ -71,7 +71,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", 6);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob", "Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertTrue(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -84,7 +84,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", 6);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob","Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertTrue(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -97,7 +97,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", 6);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob","Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertFalse(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -110,7 +110,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", -1);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob","Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertTrue(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -123,7 +123,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", -1);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob","Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertTrue(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -136,7 +136,7 @@ public class BoardTester {
         Piece opponent1 = new Piece("Joe", 10);
         b.setPiece(mover, 0, 0);
         b.setPiece(opponent1, 0, 1);
-        b.move(0,0, 0, 1);
+        b.move("Bob","Joe",0,0, 0, 1);
         assertFalse(b.isFilled(0,0));
         assertTrue(b.isFilled(0,1));
         System.out.println(b.getPiece(0,1).getTeamName());
@@ -147,7 +147,7 @@ public class BoardTester {
         Board b = new Board("Bob", "Joe");
         Piece p = new Piece("Bob", 4);
         b.setPiece(p, 0,0);
-        b.move(0,0,1,1);
+        b.move("Bob","Joe",0,0,1,1);
         assertFalse(b.isFilled(1,1));
     }
 
@@ -156,11 +156,11 @@ public class BoardTester {
         Board b = new Board("Bob", "Joe");
         Piece scout = new Piece("Bob", 2);
         b.setPiece(scout,0,0);
-        b.move(0,0,0,5);
+        b.move("Bob","Joe",0,0,0,5);
         System.out.println(b.getPiece(0,5).getTeamName());
         Piece p = new Piece("Bob", 4);
         b.setPiece(p,0,2);
-        b.move(0,5,0,0);
+        b.move("Bob","Joe",0,5,0,0);
     }
 
 }
