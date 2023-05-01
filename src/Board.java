@@ -485,8 +485,8 @@ public class Board {
     public boolean hasWon(String opponent) {
         //if the opponent has a flag the player has not won yet
         if (opponent.equals(player1)) {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 9; j++) {
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
                     Piece p = getPiece(i,j);
                     if (p.getValue() == 0) {
                         return false;
@@ -494,8 +494,8 @@ public class Board {
                 }
             }
         } else {
-            for (int i = 6; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
+            for (int i = 6; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
                     Piece p = getPiece(i,j);
                     if (p.getValue() == 0) {
                         return false;
@@ -513,8 +513,8 @@ public class Board {
      */
     public boolean canPlay(String currentPlayer) {
         //checks the board for the current player's pieces
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 Piece p = getPiece(i,j);
                 if (p.getTeamName().equals(currentPlayer) && canMovePiece(i,j)) {
                     return true;
@@ -522,5 +522,28 @@ public class Board {
             }
         }
         return false;
+    }
+
+    /**
+     * method that automatically fills the board
+     * @param auto boolean variable that determines whether to automatically fill or not
+     */
+    public void autoFill(boolean auto) {
+        if (auto) {
+            LinkedList<Piece> pieces = createLinkedLists("Bob");
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
+                    Piece p = pieces.remove();
+                    setPiece(p,i,j);
+                }
+            }
+            LinkedList<Piece> pieces2 = createLinkedLists("Joe");
+            for (int i = 6; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    Piece p = pieces.remove();
+                    setPiece(p,i,j);
+                }
+            }
+        }
     }
 }

@@ -26,7 +26,13 @@ public class Game {
      * runs a game of Stratego
      */
     public void gameLoop() {
+        while (true) {
+            if (!gameBoard.canPlay(currentPlayer)) {
+                break;
+            } else {
 
+            }
+        }
     }
 
     /**
