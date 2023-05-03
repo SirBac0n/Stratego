@@ -26,13 +26,63 @@ public class Game {
      * runs a game of Stratego
      */
     public void gameLoop() {
+        gameBoard = new Board(player1,player2);
+        //using autofilled board for now
+        gameBoard.autoFill(true);
+        Scanner in = new Scanner(System.in);
+        int curRow, curCol, newRow, newCol;
         while (true) {
+            System.out.println("\n" + gameBoard);
             if (!gameBoard.canPlay(currentPlayer)) {
                 break;
-            } else {
-
             }
+            //loops until gets a valid move
+            while (true) {
+                System.out.print(currentPlayer + " enter the location of the piece you would like to move: ");
+                try (Scanner curLocation = new Scanner(in.nextLine())){
+                    curRow = curLocation.nextInt();
+                    curCol = curLocation.nextInt();
+                } catch (Exception e) {
+                    System.out.println("\nNot a valid number");
+                    continue;
+                }
+                System.out.print(currentPlayer + " enter the location that you would like to move the piece to: ");
+                try (Scanner newLocation = new Scanner(in.nextLine())) {
+                    newRow = newLocation.nextInt();
+                    newCol = newLocation.nextInt();
+                } catch (Exception e) {
+                    System.out.println("\nNot a valid number");
+                    continue;
+                }
+                if (currentPlayer.equals(player1)) {
+                    try {
+                        gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
+                } else {
+                    try {
+                        gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
+                        break;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("\n" + e.getMessage());
+                    }
+                }
+            }
+            //checks if the player has won
+            if (currentPlayer.equals(player1) && gameBoard.hasWon(player2)) {
+                System.out.println("\n" + gameBoard);
+                System.out.println(currentPlayer + " has won the game!");
+                break;
+            } else if (gameBoard.hasWon(player1)) {
+                System.out.println("\n" + gameBoard);
+                System.out.println(currentPlayer + " has won the game!");
+                break;
+            }
+            switchPlayer();
         }
+        in.close();
     }
 
     /**
