@@ -34,6 +34,7 @@ public class Game {
         while (true) {
             System.out.println("\n" + gameBoard);
             if (!gameBoard.canPlay(currentPlayer)) {
+                System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
                 break;
             }
             //loops until gets a valid move
