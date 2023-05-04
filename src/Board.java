@@ -565,4 +565,27 @@ public class Board {
             }
         }
     }
+
+    public void presetBoard(String player) {
+        ArrayList<ArrayList<Piece>> playerBoard;
+
+        playerBoard = new ArrayList<ArrayList<Piece>>();
+        for (int i = 0; i < 4; i++) {
+            ArrayList<Piece> row = new ArrayList<>(10);
+            for (int j = 0; j < 10; j++) {
+                //was originally going to make empty spaces null but it didnt seem to be working the way
+                // I wanted it to. if you have a better idea go for it
+                Piece empty = new Piece("Empty", -3);
+                row.add(empty);
+            }
+            playerBoard.add(row);
+        }
+
+        if (player.equals(player1)) {
+            //set the first four rows to playerBoard
+        }
+        else {
+            //set the last four rows to the transpose of playerBoard
+        }
+    }
 }
