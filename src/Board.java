@@ -364,6 +364,16 @@ public class Board {
         }*/
     }
 
+    public boolean canMovePiece(int row, int col, String currentPlayer) {
+        if (!canMovePiece(row, col)) {
+            return false;
+        }
+        if (!getPiece(row,col).getTeamName().equals(currentPlayer)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * sets a piece on the board
      * @param p the piece to be placed
