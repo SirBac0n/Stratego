@@ -435,6 +435,8 @@ public class Board {
         Piece newLocation = getPiece(row2, col2);
         if (!canMovePiece(row1, col1)) {
             throw new IllegalArgumentException("This piece can not be moved");
+        } else if (getPiece(row2,col2).getTeamName().equals(currentPlayer)) {
+            throw new IllegalArgumentException("You already have a piece in that location");
         } else if (row1 == row2 && col1 == col2) {
             throw new IllegalArgumentException("Piece is already in this location");
         } else if (current.getValue() != 2 && (row2 > row1 + 1 || row2 < row1 - 1 || col2 > col1 + 1 || col2 < col1 - 1)) {
@@ -528,16 +530,16 @@ public class Board {
      * method that automatically fills the board
      * @param auto boolean variable that determines whether to automatically fill or not
      */
-    public void autoFill(boolean auto) {
+    public void autoFill(boolean auto,String player1, String player2) {
         if (auto) {
-            LinkedList<Piece> pieces = createLinkedLists("Bob");
+            LinkedList<Piece> pieces = createLinkedLists(player1);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 10; j++) {
                     Piece p = pieces.remove();
                     setPiece(p,i,j);
                 }
             }
-            LinkedList<Piece> pieces2 = createLinkedLists("Joe");
+            LinkedList<Piece> pieces2 = createLinkedLists(player2);
             for (int i = 6; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     Piece p = pieces2.remove();

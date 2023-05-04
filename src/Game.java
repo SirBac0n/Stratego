@@ -28,7 +28,7 @@ public class Game {
     public void gameLoop() {
         gameBoard = new Board(player1,player2);
         //using autofilled board for now
-        gameBoard.autoFill(true);
+        gameBoard.autoFill(true,player1,player2);
         Scanner in = new Scanner(System.in);
         int curRow, curCol, newRow, newCol;
         while (true) {
@@ -44,7 +44,7 @@ public class Game {
                     curRow = curLocation.nextInt();
                     curCol = curLocation.nextInt();
                 } catch (Exception e) {
-                    System.out.println("\nNot a valid number");
+                    System.out.println("\nNot a valid number\n");
                     continue;
                 }
                 System.out.print(currentPlayer + " enter the location that you would like to move the piece to: ");
@@ -52,7 +52,7 @@ public class Game {
                     newRow = newLocation.nextInt();
                     newCol = newLocation.nextInt();
                 } catch (Exception e) {
-                    System.out.println("\nNot a valid number");
+                    System.out.println("\nNot a valid number\n");
                     continue;
                 }
                 if (currentPlayer.equals(player1)) {
@@ -60,14 +60,14 @@ public class Game {
                         gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("\n" + e.getMessage());
+                        System.out.println("\n" + e.getMessage() + "\n");
                     }
                 } else {
                     try {
                         gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
-                        System.out.println("\n" + e.getMessage());
+                        System.out.println("\n" + e.getMessage() + "\n");
                     }
                 }
             }
