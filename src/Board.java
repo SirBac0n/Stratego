@@ -364,6 +364,13 @@ public class Board {
         }*/
     }
 
+    /**
+     * This method takes a row, column, and the current player and finds out if the piece at that position can be moved by the current player
+     * @param row the row of the piece
+     * @param col the column of the piece
+     * @param currentPlayer the current player
+     * @return whether the piece can be moved or not
+     */
     public boolean canMovePiece(int row, int col, String currentPlayer) {
         if (!canMovePiece(row, col)) {
             return false;
