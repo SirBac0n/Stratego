@@ -24,15 +24,16 @@ public class BoardTester {
         System.out.println(board.isFilled(7,2));
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
         //System.out.println(scn.nextInt(f));
+
         Board b = new Board("Bill","Susan");
         b.setPlayerPieces("Bill");
         b.setPiece(new Piece("Bill",10),9,9);
         System.out.println(b);
 
-    }
+    }*/
 
     @Test
     public void canMovePieceTester() {
