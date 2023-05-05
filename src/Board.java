@@ -47,7 +47,7 @@ public class Board {
      * @param player the player whose pieces are being added
      */
     public void setPlayerPieces(String player) {
-        LinkedList<Piece> startingPieces = createLinkedLists(player);
+        Queue<Piece> startingPieces = createLinkedLists(player);
         Scanner scan = new Scanner(System.in);
 
 
@@ -68,7 +68,7 @@ public class Board {
             Scanner lineScan;
 
             //This line removes the Pieces from the que
-            Piece p = startingPieces.remove(0);
+            Piece p = startingPieces.remove();
             System.out.println(this);
             while (true) {
                 System.out.println(player + ", your next piece is a " + p.getPieceName() + ". Where do you want to place it? Enter the row index (" + minRow + " - " + maxRow + ") and a space and then the column index (0-9).");
@@ -105,7 +105,7 @@ public class Board {
      * @param player the name of the player that these pieces will belong to
      * @return this method returns a linked list of all the pieces that still need to be added to the board
      */
-    private LinkedList<Piece> createLinkedLists(String player) {
+    private Queue<Piece> createLinkedLists(String player) {
         LinkedList<Piece> startingPieces = new LinkedList<>();
         startingPieces.add(new Piece(player,0));
         for (int i = 0; i < 6; i++) {
@@ -549,14 +549,14 @@ public class Board {
      */
     public void autoFill(boolean auto,String player1, String player2) {
         if (auto) {
-            LinkedList<Piece> pieces = createLinkedLists(player1);
+            Queue<Piece> pieces = createLinkedLists(player1);
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 10; j++) {
                     Piece p = pieces.remove();
                     setPiece(p,i,j);
                 }
             }
-            LinkedList<Piece> pieces2 = createLinkedLists(player2);
+            Queue<Piece> pieces2 = createLinkedLists(player2);
             for (int i = 6; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
                     Piece p = pieces2.remove();
@@ -578,13 +578,94 @@ public class Board {
             }
             playerBoard.add(row);
         }
+        Queue<Piece> piecesLeft = createLinkedLists(player);
+
+        //Set flag
+        playerBoard.get(0).set(9, piecesLeft.remove());
+
+        //Set bombs
+        playerBoard.get(1).set(4 , piecesLeft.remove());
+        playerBoard.get(2).set(4 , piecesLeft.remove());
+        playerBoard.get(2).set(9 , piecesLeft.remove());
+        playerBoard.get(3).set(1 , piecesLeft.remove());
+        playerBoard.get(3).set(3 , piecesLeft.remove());
+        playerBoard.get(3).set(8 , piecesLeft.remove());
+
+        //Set 1
+        playerBoard.get(2).set(2 , piecesLeft.remove());
+
+        //Set 2s
+        playerBoard.get(0).set(1 , piecesLeft.remove());
+        playerBoard.get(0).set(5 , piecesLeft.remove());
+        playerBoard.get(0).set(6 , piecesLeft.remove());
+        playerBoard.get(0).set(8 , piecesLeft.remove());
+        playerBoard.get(1).set(1 , piecesLeft.remove());
+        playerBoard.get(1).set(5 , piecesLeft.remove());
+        playerBoard.get(2).set(5 , piecesLeft.remove());
+        playerBoard.get(3).set(5 , piecesLeft.remove());
+
+        //Set 3s
+        playerBoard.get(1).set(9 , piecesLeft.remove());
+        playerBoard.get(2).set(3 , piecesLeft.remove());
+        playerBoard.get(3).set(0 , piecesLeft.remove());
+        playerBoard.get(3).set(6 , piecesLeft.remove());
+        playerBoard.get(3).set(7 , piecesLeft.remove());
+
+        //Set 4s
+        playerBoard.get(0).set(2 , piecesLeft.remove());
+        playerBoard.get(2).set(0 , piecesLeft.remove());
+        playerBoard.get(3).set(5 , piecesLeft.remove());
+        playerBoard.get(3).set(4 , piecesLeft.remove());
+
+        //Set 5s
+        playerBoard.get(1).set(0 , piecesLeft.remove());
+        playerBoard.get(1).set(3 , piecesLeft.remove());
+        playerBoard.get(2).set(7 , piecesLeft.remove());
+        playerBoard.get(2).set(8 , piecesLeft.remove());
+
+        //Set 6s
+        playerBoard.get(0).set(0 , piecesLeft.remove());
+        playerBoard.get(0).set(4 , piecesLeft.remove());
+        playerBoard.get(0).set(9 , piecesLeft.remove());
+        playerBoard.get(2).set(6 , piecesLeft.remove());
+
+        //Set 7s
+        playerBoard.get(1).set(2 , piecesLeft.remove());
+        playerBoard.get(1).set(6 , piecesLeft.remove());
+        playerBoard.get(1).set(7 , piecesLeft.remove());
+
+        //Set 8s
+        playerBoard.get(2).set(1 , piecesLeft.remove());
+        playerBoard.get(1).set(8 , piecesLeft.remove());
+
+        //Set 9
+        playerBoard.get(0).set(3 , piecesLeft.remove());
+
+        //Set 10
+        playerBoard.get(0).set(7 , piecesLeft.remove());
 
         if (player.equals(player1)) {
+            //set the first four rows to the transpose of playerBoard
 
-            //set the first four rows to playerBoard
+            //This transposes playerBoard
+            Collections.reverse(playerBoard);
+            for (int i = 0; i < 4; i++) {
+                Collections.reverse(playerBoard.get(i));
+            }
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
+                    setPiece(playerBoard.get(i).get(j), (i+6), j);
+                }
+            }
         }
         else {
-            //set the last four rows to the transpose of playerBoard
+            //set the last four rows to playerBoard
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
+                    setPiece(playerBoard.get(i).get(j), (i+6), j);
+                }
+            }
         }
     }
 }
