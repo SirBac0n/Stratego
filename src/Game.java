@@ -16,8 +16,19 @@ public class Game {
         Scanner in = new Scanner(System.in);
         System.out.print("Player 1 enter your name: ");
         player1 = in.next();
+
         System.out.print("Player 2 enter your name: ");
         player2 = in.next();
+        /*
+        while (true) {
+            System.out.print("Player 2 enter your name: ");
+            String name = in.next();
+            if (!name.equals(player1)) {
+                player2 = name;
+                break;
+            }
+            System.out.println("The name you entered is already taken.");
+        }*/
         gameBoard = new Board(player1, player2);
         currentPlayer = player1;
     }
@@ -28,11 +39,11 @@ public class Game {
     public void gameLoop() {
         gameBoard = new Board(player1,player2);
 
-        Scanner in = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
         System.out.println(player1 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
-            char firstChar = in.next().toUpperCase().charAt(0);
+            char firstChar = scan.next().toUpperCase().charAt(0);
             if (firstChar == 'C') {
                 gameBoard.setPlayerPieces(player1);
                 break;
@@ -46,7 +57,7 @@ public class Game {
         System.out.println(player2 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
-            char firstChar = in.next().toUpperCase().charAt(0);
+            char firstChar = scan.next().toUpperCase().charAt(0);
             if (firstChar == 'C') {
                 gameBoard.setPlayerPieces(player2);
                 break;
@@ -56,6 +67,8 @@ public class Game {
                 break;
             }
         }
+
+        //in.close();
 
         int curRow, curCol, newRow, newCol;
         while (true) {
@@ -72,7 +85,7 @@ public class Game {
             //loops until gets a valid move
             while (true) {
                 System.out.print(currentPlayer + ", enter the location of the piece you would like to move: ");
-                try (Scanner curLocation = new Scanner(in.nextLine())){
+                try (Scanner curLocation = new Scanner(scan.nextLine())){
                     curRow = curLocation.nextInt();
                     curCol = curLocation.nextInt();
                 } catch (Exception e) {
@@ -96,7 +109,7 @@ public class Game {
                     continue;
                 }
                 System.out.print(currentPlayer + ", enter the location that you would like to move the piece to: ");
-                try (Scanner newLocation = new Scanner(in.nextLine())) {
+                try (Scanner newLocation = new Scanner(scan.nextLine())) {
                     newRow = newLocation.nextInt();
                     newCol = newLocation.nextInt();
                 } catch (Exception e) {
@@ -133,7 +146,7 @@ public class Game {
 
             switchPlayer();
         }
-        in.close();
+        scan.close();
     }
 
     /**
