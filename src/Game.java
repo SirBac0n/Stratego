@@ -39,6 +39,12 @@ public class Game {
             }
             //loops until gets a valid move
             while (true) {
+                //checks if there is a draw
+                if (!gameBoard.movablePiecesLeft()) {
+                    System.out.println("Game over – Draw");
+                    break;
+                }
+
                 System.out.print(currentPlayer + ", enter the location of the piece you would like to move: ");
                 try (Scanner curLocation = new Scanner(in.nextLine())){
                     curRow = curLocation.nextInt();
@@ -47,6 +53,18 @@ public class Game {
                     System.out.println("\nNot a valid number\n");
                     continue;
                 }
+
+                //makes sure row and column are valid
+                if ((curRow < 0) || (curRow > 9)) {
+                    System.out.println("\nInvalid row\n");
+                    continue;
+                }
+                if ((curCol < 0) || (curCol > 9)) {
+                    System.out.println("\nInvalid row\n");
+                    continue;
+                }
+
+                //checks if the player can move the piece they selected
                 if (!gameBoard.canMovePiece(curRow,curCol,currentPlayer)) {
                     System.out.println("\nCannot move that piece\n");
                     continue;
@@ -75,6 +93,7 @@ public class Game {
                     }
                 }
             }
+
             //checks if the player has won
             if (currentPlayer.equals(player1) && gameBoard.hasWon(player2)) {
                 System.out.println("\n" + gameBoard);
@@ -85,6 +104,7 @@ public class Game {
                 System.out.println(currentPlayer + " has won the game!");
                 break;
             }
+
             switchPlayer();
         }
         in.close();
