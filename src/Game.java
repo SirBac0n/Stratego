@@ -27,9 +27,36 @@ public class Game {
      */
     public void gameLoop() {
         gameBoard = new Board(player1,player2);
-        //using autofilled board for now
-        gameBoard.autoFill(true,player1,player2);
+
         Scanner in = new Scanner(System.in);
+        System.out.println(player1 + ", please choose how to enter your pieces.");
+        while (true) {
+            System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
+            char firstChar = in.next().toUpperCase().charAt(0);
+            if (firstChar == 'C') {
+                gameBoard.setPlayerPieces(player1);
+                break;
+            }
+            else if (firstChar == 'P') {
+                gameBoard.presetBoard(player1);
+                break;
+            }
+        }
+
+        System.out.println(player2 + ", please choose how to enter your pieces.");
+        while (true) {
+            System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
+            char firstChar = in.next().toUpperCase().charAt(0);
+            if (firstChar == 'C') {
+                gameBoard.setPlayerPieces(player2);
+                break;
+            }
+            else if (firstChar == 'P') {
+                gameBoard.presetBoard(player2);
+                break;
+            }
+        }
+
         int curRow, curCol, newRow, newCol;
         while (true) {
             System.out.println("\n" + gameBoard);
@@ -37,14 +64,13 @@ public class Game {
                 System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
                 break;
             }
+            //checks if there is a draw
+            if (!gameBoard.movablePiecesLeft()) {
+                System.out.println("Game over – Draw");
+                break;
+            }
             //loops until gets a valid move
             while (true) {
-                //checks if there is a draw
-                if (!gameBoard.movablePiecesLeft()) {
-                    System.out.println("Game over – Draw");
-                    break;
-                }
-
                 System.out.print(currentPlayer + ", enter the location of the piece you would like to move: ");
                 try (Scanner curLocation = new Scanner(in.nextLine())){
                     curRow = curLocation.nextInt();

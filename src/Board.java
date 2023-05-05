@@ -581,7 +581,7 @@ public class Board {
         Queue<Piece> piecesLeft = createLinkedLists(player);
 
         //Set flag
-        playerBoard.get(0).set(9, piecesLeft.remove());
+        playerBoard.get(3).set(9, piecesLeft.remove());
 
         //Set bombs
         playerBoard.get(1).set(4 , piecesLeft.remove());
@@ -614,7 +614,7 @@ public class Board {
         //Set 4s
         playerBoard.get(0).set(2 , piecesLeft.remove());
         playerBoard.get(2).set(0 , piecesLeft.remove());
-        playerBoard.get(3).set(5 , piecesLeft.remove());
+        playerBoard.get(3).set(2 , piecesLeft.remove());
         playerBoard.get(3).set(4 , piecesLeft.remove());
 
         //Set 5s
@@ -645,6 +645,15 @@ public class Board {
         playerBoard.get(0).set(7 , piecesLeft.remove());
 
         if (player.equals(player1)) {
+            //set the last four rows to playerBoard
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
+                    setPiece(playerBoard.get(i).get(j), (i+6), j);
+                }
+            }
+        }
+        else {
             //set the first four rows to the transpose of playerBoard
 
             //This transposes playerBoard
@@ -655,15 +664,7 @@ public class Board {
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 10; j++) {
-                    setPiece(playerBoard.get(i).get(j), (i+6), j);
-                }
-            }
-        }
-        else {
-            //set the last four rows to playerBoard
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 10; j++) {
-                    setPiece(playerBoard.get(i).get(j), (i+6), j);
+                    setPiece(playerBoard.get(i).get(j), (i), j);
                 }
             }
         }
