@@ -3,8 +3,8 @@ import java.util.*;
 public class Board {
     private ArrayList<ArrayList<Piece>> board;
 
-    private String player1;
-    private String player2;
+    private final String player1;
+    private final String player2;
 
     /**
      * the board constructor
@@ -17,7 +17,7 @@ public class Board {
         //startingPieces2 = createLinkedLists(this.player2);
 
         //initializing the board
-        board = new ArrayList<ArrayList<Piece>>();
+        board = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             ArrayList<Piece> col = new ArrayList<>(10);
             for (int j = 0; j < 10; j++) {
@@ -32,9 +32,7 @@ public class Board {
         //putting obstacles on the board
         for (int i = 2; i < 8; i++) {
             for (int j = 4; j < 6; j++) {
-                if (i == 4 || i == 5) {
-                    continue;
-                } else {
+                if (!(i == 4 || i == 5)) {
                     Piece obstacle = new Piece("Obstacle", -2);
                     setPiece(obstacle, j, i);
                 }
@@ -298,9 +296,6 @@ public class Board {
             return false;
         }
 
-        int thisRow;
-        int thisCol;
-
         //this is my attempt, it looks long and ugly. if you can think of a better way of doing this feel free to change it
 
         //checks corners
@@ -424,10 +419,7 @@ public class Board {
         if (!canMovePiece(row, col)) {
             return false;
         }
-        if (!getPiece(row,col).getTeamName().equals(currentPlayer)) {
-            return false;
-        }
-        return true;
+        return getPiece(row, col).getTeamName().equals(currentPlayer);
     }
 
     /**
@@ -618,7 +610,7 @@ public class Board {
     public void presetBoard(String player) {
         ArrayList<ArrayList<Piece>> playerBoard;
 
-        playerBoard = new ArrayList<ArrayList<Piece>>();
+        playerBoard = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             ArrayList<Piece> row = new ArrayList<>(10);
             for (int j = 0; j < 10; j++) {
