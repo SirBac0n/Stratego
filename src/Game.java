@@ -94,7 +94,7 @@ public class Game {
 
             //loops until gets a valid move
             while (true) {
-                System.out.print(currentPlayer + ", enter the location of the piece you would like to move with the row, a space, and then a column: ");
+                System.out.print(currentPlayer + ", enter the location of the piece you would like to move with the row, a space, and then then column: ");
                 try (Scanner curLocation = new Scanner(scan.nextLine())){
                     curRow = curLocation.nextInt();
                     curCol = curLocation.nextInt();
