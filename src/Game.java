@@ -73,7 +73,6 @@ public class Game {
 
         int curRow, curCol, newRow, newCol;
         while (true) {
-            System.out.println("\n" + gameBoard.toString(currentPlayer));
             if (!gameBoard.canPlay(currentPlayer)) {
                 System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
                 break;
@@ -83,6 +82,16 @@ public class Game {
                 System.out.println("Game over – Draw");
                 break;
             }
+
+            //prints out 20 lines so the previous board cannot be seen
+            for (int i = 0; i < 10; i++) {
+                System.out.println("\n");
+            }
+
+            //prints out the board
+            System.out.println("\n" + gameBoard.toString(currentPlayer));
+
+
             //loops until gets a valid move
             while (true) {
                 System.out.print(currentPlayer + ", enter the location of the piece you would like to move with the row, a space, and then a column: ");

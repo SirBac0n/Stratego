@@ -372,16 +372,16 @@ public class Board {
             }
         }
         //base case
-        else if (!isFilled(row - 1, col) || !getPiece(row - 1,col).getTeamName().equals(p.getTeamName())) {
+        else if (!isFilled(row - 1, col) || (!getPiece(row - 1,col).getTeamName().equals(p.getTeamName()) && !getPiece(row - 1, col).getTeamName().equals("Obstacle"))) {
             return true;
         }
-        else if (!isFilled(row, col - 1) || !getPiece(row,col - 1).getTeamName().equals(p.getTeamName())) {
+        else if (!isFilled(row, col - 1) || (!getPiece(row,col - 1).getTeamName().equals(p.getTeamName()) && !getPiece(row, col - 1).getTeamName().equals("Obstacle"))) {
             return true;
         }
-        else if (!isFilled(row, col + 1) || !getPiece(row,col + 1).getTeamName().equals(p.getTeamName())) {
+        else if (!isFilled(row, col + 1) || (!getPiece(row,col + 1).getTeamName().equals(p.getTeamName()) && !getPiece(row, col + 1).getTeamName().equals("Obstacle"))) {
             return true;
         }
-        return !isFilled(row + 1, col) || !getPiece(row + 1, col).getTeamName().equals(p.getTeamName());
+        return !isFilled(row + 1, col) || (!getPiece(row + 1, col).getTeamName().equals(p.getTeamName()) && !getPiece(row + 1, col).getTeamName().equals("Obstacle"));
 
         /*//If a movable spot is found, return true
         //Checks first column to the left of piece
