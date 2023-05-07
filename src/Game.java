@@ -39,11 +39,12 @@ public class Game {
     public void gameLoop() {
         gameBoard = new Board(player1,player2);
 
+        //Sets up the board for the two players.
         Scanner scan = new Scanner(System.in);
         System.out.println(player1 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
-            char firstChar = scan.next().toUpperCase().charAt(0);
+            char firstChar = scan.nextLine().toUpperCase().charAt(0);
             if (firstChar == 'C') {
                 gameBoard.setPlayerPieces(player1);
                 break;
@@ -67,8 +68,8 @@ public class Game {
                 break;
             }
         }
+        scan.nextLine();
 
-        //in.close();
 
         int curRow, curCol, newRow, newCol;
         while (true) {
