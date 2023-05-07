@@ -158,7 +158,6 @@ public class Board {
             sb.append(i).append(" ");
         }
         sb.append("\n");
-        //____________________-------------------
         sb.append("    - - - - - - - - - - \n");
         for (int i = 0; i < board.size(); i++) {
             ArrayList<Piece> rowList = board.get(i);
@@ -185,6 +184,56 @@ public class Board {
                 }
                 sb.append(" ");
              }
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public String toString(String player) {
+        //All the pieces get displayed as their value number except 10s ("0"), bombs ("B"), flags ("F"), and obstacles (" ").
+        StringBuilder sb = new StringBuilder();
+
+        //This code finds the other player
+        ArrayList<String> players = new ArrayList<>(Arrays.asList(player1,player2));
+        players.remove(player);
+        String otherPlayer = players.get(0);
+
+        sb.append("    ");
+        for (int i = 0; i < 10; i++) {
+            sb.append(i).append(" ");
+        }
+        sb.append("\n");
+        sb.append("    - - - - - - - - - - \n");
+        for (int i = 0; i < board.size(); i++) {
+            ArrayList<Piece> rowList = board.get(i);
+            sb.append(i).append(" | ");
+            for (Piece p : rowList) {
+                //All the pieces that are the other players show up as Xs
+                if (p.getTeamName().equals(otherPlayer)) {
+                    sb.append("X");
+                }
+                else if (p.getValue() > 0 && p.getValue() < 10) {
+                    sb.append(p.getValue());
+                }
+                else if (p.getValue() == 10) {
+                    sb.append(0);
+                }
+                else if (p.getValue() == 0) {
+                    sb.append("F");
+                }
+                else if (p.getValue() == -1) {
+                    sb.append("B");
+                }
+                else if (p.getValue() == -2) {
+                    sb.append(" ");
+                }
+                else if (p.getValue() == -3){
+                    //I found this special dot character that is in the middle of the space for the char
+                    sb.append("·");
+                }
+                sb.append(" ");
+            }
             sb.append("\n");
         }
 
