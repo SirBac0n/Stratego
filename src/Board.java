@@ -21,7 +21,7 @@ public class Board {
         for (int i = 0; i < 10; i++) {
             ArrayList<Piece> col = new ArrayList<>(10);
             for (int j = 0; j < 10; j++) {
-                //was originally going to make empty spaces null but it didnt seem to be working the way
+                //was originally going to make empty spaces null, but it didn't seem to be working the way
                 // I wanted it to. if you have a better idea go for it
                 Piece empty = new Piece("Empty", -3);
                 col.add(empty);
@@ -60,7 +60,7 @@ public class Board {
             maxRow = 9;
         }
 
-        //keep looping while there are still Pieces in the linkedlist que
+        //keep looping while there are still Pieces in the linked-list que
         while (startingPieces.size() > 0) {
             //This scanner takes in a line from the console
             Scanner lineScan;
@@ -385,7 +385,7 @@ public class Board {
 
         /*//If a movable spot is found, return true
         //Checks first column to the left of piece
-        //do we need to check the columns to the left and right? I dont think pieces can move diagonally
+        //do we need to check the columns to the left and right? I don't think pieces can move diagonally
         for (int i = 0; i < 3; i++) {
             thisRow = i-1+row;
             thisCol = -1 + col;
@@ -453,25 +453,44 @@ public class Board {
         Piece attacker = getPiece(attackerRow, attackerCol);
         Piece defender = getPiece(defenderRow, defenderCol);
         Piece empty = new Piece("Empty", -3);
+        boolean attackerWins = false;
+        //When a spy attacks a 10
         if (attacker.getValue() == 1 && defender.getValue() == 10) {
             board.get(defenderRow).set(defenderCol, attacker);
             board.get(attackerRow).set(attackerCol, empty);
-        } else if (defender.getValue() == -1 && attacker.getValue() != 3) {
-            board.get(attackerRow).set(attackerCol, empty);
-        } else if (defender.getValue() == -1 && attacker.getValue() == 3) {
-            board.get(defenderRow).set(defenderCol, attacker);
-            board.get(attackerRow).set(attackerCol, empty);
-        } else if (attacker.getValue() > defender.getValue()) {
-            board.get(defenderRow).set(defenderCol, attacker);
-            board.get(attackerRow).set(attackerCol, empty);
-        } else if (attacker.getValue() < defender.getValue()) {
+            attackerWins = true;
+        }
+        //When 10 attacks a spy
+        else if (defender.getValue() == 1 && attacker.getValue() == 10) {
             board.get(attackerRow).set(attackerCol, empty);
         }
-        //if they are equal both pieces are removed
+        //When any piece aside from 3 attacks a bomb
+        else if (defender.getValue() == -1 && attacker.getValue() != 3) {
+            board.get(attackerRow).set(attackerCol, empty);
+        }
+        //When 3 attacks a bomb
+        else if (defender.getValue() == -1 && attacker.getValue() == 3) {
+            board.get(defenderRow).set(defenderCol, attacker);
+            board.get(attackerRow).set(attackerCol, empty);
+            attackerWins = true;
+        }
+        //When the attacker defeats the defender
+        else if (attacker.getValue() > defender.getValue()) {
+            board.get(defenderRow).set(defenderCol, attacker);
+            board.get(attackerRow).set(attackerCol, empty);
+            attackerWins = true;
+        }
+        //When the defender defeats the attacker
+        else if (attacker.getValue() < defender.getValue()) {
+            board.get(attackerRow).set(attackerCol, empty);
+        }
         else {
             board.get(attackerRow).set(attackerCol, empty);
             board.get(defenderRow).set(defenderCol, empty);
         }
+
+
+
     }
 
     /**
