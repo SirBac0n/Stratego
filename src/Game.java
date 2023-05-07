@@ -5,9 +5,9 @@ public class Game {
 
     private String currentPlayer;
 
-    private String player1;
+    private final String player1;
 
-    private String player2;
+    private final String player2;
 
     /**
      * the game constructor
