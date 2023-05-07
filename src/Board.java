@@ -729,4 +729,10 @@ public class Board {
             }
         }
     }
+
+    private void swapPieces(int row1, int col1, int row2, int col2) {
+        Piece savePiece = getPiece(row1,col1);
+        board.get(row1).set(col1,getPiece(row2,col2));
+        board.get(row2).set(col2,savePiece);
+    }
 }
