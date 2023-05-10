@@ -13,16 +13,11 @@ public class Board {
         this.player1 = player1;
         this.player2 = player2;
 
-        //startingPieces1 = createLinkedLists(this.player1);
-        //startingPieces2 = createLinkedLists(this.player2);
-
         //initializing the board
         board = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             ArrayList<Piece> col = new ArrayList<>(10);
             for (int j = 0; j < 10; j++) {
-                //was originally going to make empty spaces null, but it didn't seem to be working the way
-                // I wanted it to. if you have a better idea go for it
                 Piece empty = new Piece("Empty", -3);
                 col.add(empty);
             }
@@ -122,7 +117,6 @@ public class Board {
         for (int i = 0; i < 4; i++) {
             startingPieces.add(new Piece(player, 5));
         }
-        //im only counting 39 pieces not 40, one website said there are 5 captains instead of 4
         for (int i = 0; i < 4; i++) {
             startingPieces.add(new Piece(player, 6));
         }
@@ -297,8 +291,6 @@ public class Board {
             return false;
         }
 
-        //this is my attempt, it looks long and ugly. if you can think of a better way of doing this feel free to change it
-
         //checks corners
         if (row == 0 && col == 0) {
             //checks adjacent spaces and returns true if the space is empty or there is an opponents piece
@@ -383,30 +375,6 @@ public class Board {
             return true;
         }
         return !isFilled(row + 1, col) || (!getPiece(row + 1, col).getTeamName().equals(p.getTeamName()) && !getPiece(row + 1, col).getTeamName().equals("Obstacle"));
-
-        /*//If a movable spot is found, return true
-        //Checks first column to the left of piece
-        //do we need to check the columns to the left and right? I don't think pieces can move diagonally
-        for (int i = 0; i < 3; i++) {
-            thisRow = i-1+row;
-            thisCol = -1 + col;
-            if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (thisCol <= 9) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())){return true;}
-        }
-
-        //Checks the spaces above and below the piece
-        thisRow = row - 1;
-        thisCol = col;
-        if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (thisCol <= 9) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
-
-        thisRow = row + 1;
-        if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
-
-        //Checks the column to the right of the piece
-        for (int i = 0; i < 3; i++) {
-            thisRow = i-1+row;
-            thisCol = 1 + col;
-            if ((thisRow >= 0) && (thisRow <= 9) && (thisCol >= 0) && (getPiece(thisRow,thisCol).getValue() == -3) || !getPiece(thisRow,thisCol).getTeamName().equals(p.getTeamName())) {return true;}
-        }*/
     }
 
     /**
@@ -438,7 +406,6 @@ public class Board {
         } else if (isFilled(row, col)) {
             throw new IllegalArgumentException("Space on the board is already filled");
         } else {
-            //I looked it up online and found this way to change things in 2D arraylists
             board.get(row).set(col, p);
         }
     }
@@ -459,7 +426,7 @@ public class Board {
             defVal = "";
         }
         else {
-            defVal = " (" + ") ";
+            defVal = " (" + defender.getValue() + ") ";
         }
         boolean attackerWins = false;
         //When a spy attacks a 10
@@ -500,10 +467,10 @@ public class Board {
         }
 
         if (attackerWins) {
-            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + defVal  + attackerRow + ", " + attackerCol + ".";
+            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + defVal + "defeated "  + attackerRow + ", " + attackerCol + ".";
         }
 
-        return defender.getTeamName() + "'s " + defender.getPieceName() + defVal + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
+        return defender.getTeamName() + "'s " + defender.getPieceName() + defVal + "defeated " + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
 
     }
 
@@ -619,6 +586,7 @@ public class Board {
 
     public void presetBoard(String player) {
         ArrayList<ArrayList<Piece>> playerBoard;
+        Scanner scan = new Scanner(System.in);
 
         playerBoard = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -719,6 +687,66 @@ public class Board {
                 }
             }
         }
+
+        System.out.println(toString(player));
+        while (true) {
+            System.out.println(player + ", would you like to swap the position of any of you pieces? Enter \"y\" or \"n\".");
+            char c = scan.next().toUpperCase().charAt(0);
+            if (c == 'Y') {
+                int row1, col1, row2, col2;
+                while (true) {
+                    System.out.println(toString(player));
+                    System.out.println("Enter the location (row, then a space, column) of the first piece you want to swap. If you are done enter -1.");
+                    try {
+                        row1 = scan.nextInt();
+                        if (row1 == -1) {
+                            return;
+                        }
+                        col1 = scan.nextInt();
+                        Piece p = getPiece(row1,col1);
+                        if (!p.getTeamName().equals(player)) {
+                            System.out.println("You cannot move that piece.");
+                            continue;
+                        }
+                    }
+                    catch (Exception e) {
+                        System.out.println("\nNot a valid location\n");
+                        continue;
+                    }
+
+                    System.out.println("Enter the location (row, then a space, column) of the second piece you want to swap.");
+                    try {
+                        row2 = scan.nextInt();
+                        col2 = scan.nextInt();
+                        getPiece(row2,col2);
+                        if ((row1 == row2) && (col1 == col2)) {
+                            System.out.println("That is the same location as first piece.");
+                            continue;
+                        }
+                        Piece p = getPiece(row2,col2);
+                        if (!p.getTeamName().equals(player)) {
+                            System.out.println("You cannot move that piece.");
+                            continue;
+                        }
+                    }
+                    catch (Exception e) {
+                        System.out.println("\nNot a valid location\n");
+                        continue;
+                    }
+
+                    swapPieces(row1, col1, row2, col2);
+                }
+                //break;
+            }
+            else if (c == 'N') {
+                break;
+            }
+            else {
+                System.out.println("Invalid entry.");
+                scan.nextLine();
+            }
+        }
+
     }
 
     private void swapPieces(int row1, int col1, int row2, int col2) {
