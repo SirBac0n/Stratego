@@ -18,6 +18,8 @@ public class Game {
         System.out.print("Player 1 enter your name: ");
         player1 = in.next();
 
+        in.nextLine();
+
         //makes sure the name that player2 enters is different from player1's
         while (true) {
             System.out.print("Player 2 enter your name: ");
