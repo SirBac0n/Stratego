@@ -70,6 +70,7 @@ public class Game {
                 gameBoard.presetBoard(player2);
                 break;
             }
+            System.out.println("Invalid entry.");
         }
         scan.nextLine();
 
