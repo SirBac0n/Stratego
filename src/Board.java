@@ -454,6 +454,13 @@ public class Board {
         Piece attacker = getPiece(attackerRow, attackerCol);
         Piece defender = getPiece(defenderRow, defenderCol);
         Piece empty = new Piece("Empty", -3);
+        String defVal;
+        if (defender.getValue() <= 0) {
+            defVal = "";
+        }
+        else {
+            defVal = " (" + ") ";
+        }
         boolean attackerWins = false;
         //When a spy attacks a 10
         if (attacker.getValue() == 1 && defender.getValue() == 10) {
@@ -493,10 +500,10 @@ public class Board {
         }
 
         if (attackerWins) {
-            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
+            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + defVal  + attackerRow + ", " + attackerCol + ".";
         }
 
-        return defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") defeated " + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
+        return defender.getTeamName() + "'s " + defender.getPieceName() + defVal + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
 
     }
 
