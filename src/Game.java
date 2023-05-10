@@ -39,7 +39,7 @@ public class Game {
      */
     public void gameLoop() throws InterruptedException {
         gameBoard = new Board(player1,player2);
-        String printOutput;
+        String printOutput = "Make your first move.";
 
         //Sets up the board for the two players.
         Scanner scan = new Scanner(System.in);
@@ -87,13 +87,15 @@ public class Game {
 
             //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
             for (int i = 5; i > 0; i--) {
-                TimeUnit.MILLISECONDS.sleep(500);
-                System.out.println("\n" + currentPlayer + "'s turn in " + i + "!\n\n");
+                System.out.println("\n\n" + currentPlayer + "'s turn in " + i + "!\n\n");
+                TimeUnit.MILLISECONDS.sleep(750);
             }
 
             //prints out the board
             System.out.println("\n" + gameBoard.toString(currentPlayer));
 
+            //Prints out the result of the last play
+            System.out.println(printOutput + "\n");
 
             //loops until gets a valid move
             while (true) {
@@ -145,7 +147,7 @@ public class Game {
                     }
                 }
             }
-            System.out.println(printOutput);
+            System.out.println("\n" + printOutput);
 
 
 

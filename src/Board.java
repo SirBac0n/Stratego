@@ -270,7 +270,7 @@ public class Board {
             board.get(row2).set(col2, current);
             board.get(row1).set(col1, empty);
         }
-        return currentPlayer + " moved to " + row2 + " " + col2 + ".";
+        return currentPlayer + " moved to " + row2 + ", " + col2 + ".";
     }
 
     /**
@@ -489,14 +489,14 @@ public class Board {
         else {
             board.get(attackerRow).set(attackerCol, empty);
             board.get(defenderRow).set(defenderCol, empty);
-            return "Each player's " + attacker.getPieceName() + " (" +attacker.getValue() + ") was defeated at " + attackerRow + " " + attackerCol + ".";
+            return "Each player's " + attacker.getPieceName() + " (" +attacker.getValue() + ") was defeated at " + attackerRow + ", " + attackerCol + ".";
         }
 
         if (attackerWins) {
-            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") at "  + attackerRow + " " + attackerCol + ".";
+            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
         }
 
-        return defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") defeated " + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + " " + attackerCol + ".";
+        return defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") defeated " + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + ", " + attackerCol + ".";
 
     }
 
