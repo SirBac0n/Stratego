@@ -18,9 +18,7 @@ public class Game {
         System.out.print("Player 1 enter your name: ");
         player1 = in.next();
 
-        //System.out.print("Player 2 enter your name: ");
-        //player2 = in.next();
-
+        //makes sure the name that player2 enters is different from player1's
         while (true) {
             System.out.print("Player 2 enter your name: ");
             String name = in.next();
@@ -42,7 +40,7 @@ public class Game {
         String printOutput = "";
         boolean firstTurn = true;
 
-        //Sets up the board for the two players.
+        //Sets up the board for the first player.
         Scanner scan = new Scanner(System.in);
         System.out.println(player1 + ", please choose how to enter your pieces.");
         while (true) {
@@ -58,6 +56,7 @@ public class Game {
             }
         }
 
+        //Sets up the board for the second player
         System.out.println(player2 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
@@ -77,13 +76,15 @@ public class Game {
 
         int curRow, curCol, newRow, newCol;
         while (true) {
-            if (!gameBoard.canPlay(currentPlayer)) {
-                System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
-                break;
-            }
             //checks if there is a draw
             if (!gameBoard.movablePiecesLeft()) {
                 System.out.println("Game over – Draw");
+                break;
+            }
+
+            //Checks to make sure that the current player can actually move
+            if (!gameBoard.canPlay(currentPlayer)) {
+                System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
                 break;
             }
 
@@ -123,7 +124,7 @@ public class Game {
                     continue;
                 }
                 if ((curCol < 0) || (curCol > 9)) {
-                    System.out.println("\nInvalid row\n");
+                    System.out.println("\nInvalid column\n");
                     continue;
                 }
 
@@ -132,6 +133,8 @@ public class Game {
                     System.out.println("\nCannot move that piece\n");
                     continue;
                 }
+
+
                 System.out.print(currentPlayer + ", enter the location that you would like to move the piece to: ");
                 try (Scanner newLocation = new Scanner(scan.nextLine())) {
                     newRow = newLocation.nextInt();
@@ -140,6 +143,7 @@ public class Game {
                     System.out.println("\nNot a valid number\n");
                     continue;
                 }
+                //moves for first player
                 if (currentPlayer.equals(player1)) {
                     try {
                         printOutput = gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
@@ -147,7 +151,9 @@ public class Game {
                     } catch (IllegalArgumentException e) {
                         System.out.println("\n" + e.getMessage() + "\n");
                     }
-                } else {
+                }
+                //moves for first player
+                else {
                     try {
                         printOutput = gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
                         break;
@@ -157,8 +163,6 @@ public class Game {
                 }
             }
             System.out.println("\n" + printOutput);
-
-
 
             //checks if the player has won
             if (currentPlayer.equals(player1) && gameBoard.hasWon(player2)) {
