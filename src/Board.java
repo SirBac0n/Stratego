@@ -449,7 +449,7 @@ public class Board {
      * @param defenderRow row that the defender is located in
      * @param defenderCol column that the defender is located in
      */
-    public void attack(int attackerRow, int attackerCol, int defenderRow, int defenderCol) {
+    public String attack(int attackerRow, int attackerCol, int defenderRow, int defenderCol) {
         Piece attacker = getPiece(attackerRow, attackerCol);
         Piece defender = getPiece(defenderRow, defenderCol);
         Piece empty = new Piece("Empty", -3);
@@ -484,12 +484,18 @@ public class Board {
         else if (attacker.getValue() < defender.getValue()) {
             board.get(attackerRow).set(attackerCol, empty);
         }
+        //When both pieces are defeated
         else {
             board.get(attackerRow).set(attackerCol, empty);
             board.get(defenderRow).set(defenderCol, empty);
+            return "Each player's " + attacker.getPieceName() + " (" +attacker.getValue() + ") was defeated at " + attackerRow + " " + attackerCol + ".";
         }
 
+        if (attackerWins) {
+            return attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") defeated " + defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") at "  + attackerRow + " " + attackerCol + ".";
+        }
 
+        return defender.getTeamName() + "'s " + defender.getPieceName() + " (" + defender.getValue() + ") defeated " + attacker.getTeamName() + "'s " + attacker.getPieceName() + " (" + attacker.getValue() + ") at "  + attackerRow + " " + attackerCol + ".";
 
     }
 
