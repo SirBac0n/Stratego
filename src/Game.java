@@ -14,6 +14,20 @@ public class Game {
      * the game constructor
      */
     public Game() {
+        String stratego = "   _____ _             _                   \n" +
+                "  / ____| |           | |                  \n" +
+                " | (___ | |_ _ __ __ _| |_ ___  __ _  ___  \n" +
+                "  \\___ \\| __| '__/ _` | __/ _ \\/ _` |/ _ \\ \n" +
+                "  ____) | |_| | | (_| | ||  __/ (_| | (_) |\n" +
+                " |_____/ \\__|_|  \\__,_|\\__\\___|\\__, |\\___/ \n" +
+                "                                __/ |      \n" +
+                "                               |___/       \n";
+        System.out.println(stratego);
+
+        System.out.println("Welcome to Stratego!");
+        System.out.println("On the board, Flags are represented by \"F\", Bombs are represented by \"B\", Marshals (10s) are represented by \"0\", and the rest of the pieces are represented by their numerical value.");
+
+
         Scanner in = new Scanner(System.in);
         System.out.print("Player 1 enter your name: ");
         player1 = in.next();
