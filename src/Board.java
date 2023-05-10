@@ -3,15 +3,15 @@ import java.util.*;
 public class Board {
     private ArrayList<ArrayList<Piece>> board;
 
-    private final String player1;
-    private final String player2;
+    private final String PLAYER1;
+    private final String PLAYER2;
 
     /**
      * the board constructor
      */
     public Board(String player1, String player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+        this.PLAYER1 = player1;
+        this.PLAYER2 = player2;
 
         //initializing the board
         board = new ArrayList<>();
@@ -47,10 +47,10 @@ public class Board {
         //minRow and maxRow are used later on to make sure that the player adds pieces in the part of the board where they are allowed to
         int minRow = -1;
         int maxRow = -1;
-        if (player1.equals(player)) {
+        if (PLAYER1.equals(player)) {
             minRow = 0;
             maxRow = 3;
-        } else if (player2.equals(player)) {
+        } else if (PLAYER2.equals(player)) {
             minRow = 6;
             maxRow = 9;
         }
@@ -187,7 +187,7 @@ public class Board {
         StringBuilder sb = new StringBuilder();
 
         //This code finds the other player
-        ArrayList<String> players = new ArrayList<>(Arrays.asList(player1,player2));
+        ArrayList<String> players = new ArrayList<>(Arrays.asList(PLAYER1, PLAYER2));
         players.remove(player);
         String otherPlayer = players.get(0);
 
@@ -544,7 +544,7 @@ public class Board {
      */
     public boolean hasWon(String opponent) {
         //if the opponent has a flag the player has not won yet
-        if (opponent.equals(player1)) {
+        if (opponent.equals(PLAYER1)) {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 10; j++) {
                     Piece p = getPiece(i,j);
@@ -663,7 +663,7 @@ public class Board {
         //Set 10
         playerBoard.get(0).set(7 , piecesLeft.remove());
 
-        if (player.equals(player1)) {
+        if (player.equals(PLAYER1)) {
             //set the last four rows to playerBoard
 
             for (int i = 0; i < 4; i++) {

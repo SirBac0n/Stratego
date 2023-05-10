@@ -6,9 +6,9 @@ public class Game {
 
     private String currentPlayer;
 
-    private final String player1;
+    private final String PLAYER1;
 
-    private final String player2;
+    private final String PLAYER2;
 
     /**
      * the game constructor
@@ -30,7 +30,7 @@ public class Game {
 
         Scanner in = new Scanner(System.in);
         System.out.print("Player 1 enter your name: ");
-        player1 = in.next();
+        PLAYER1 = in.next();
 
         in.nextLine();
 
@@ -38,57 +38,57 @@ public class Game {
         while (true) {
             System.out.print("Player 2 enter your name: ");
             String name = in.next();
-            if (!name.equals(player1)) {
-                player2 = name;
+            if (!name.equals(PLAYER1)) {
+                PLAYER2 = name;
                 break;
             }
             System.out.println("The name you entered is already taken.");
         }
-        gameBoard = new Board(player1, player2);
-        currentPlayer = player1;
+        gameBoard = new Board(PLAYER1, PLAYER2);
+        currentPlayer = PLAYER1;
     }
 
     /**
      * runs a game of Stratego
      */
     public void gameLoop() throws InterruptedException {
-        gameBoard = new Board(player1,player2);
+        gameBoard = new Board(PLAYER1, PLAYER2);
         String printOutput = "";
         boolean firstTurn = true;
 
         //Sets up the board for the first player.
         Scanner scan = new Scanner(System.in);
-        System.out.println(player1 + ", please choose how to enter your pieces.");
+        System.out.println(PLAYER1 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
             char firstChar = scan.nextLine().toUpperCase().charAt(0);
             if (firstChar == 'C') {
-                gameBoard.setPlayerPieces(player1);
+                gameBoard.setPlayerPieces(PLAYER1);
                 break;
             }
             else if (firstChar == 'P') {
-                gameBoard.presetBoard(player1);
+                gameBoard.presetBoard(PLAYER1);
                 break;
             }
         }
 
         //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
         for (int i = 5; i > 0; i--) {
-            System.out.println("\n\n" + player1 + "'s turn to move pieces in " + i + "!\n\n");
+            System.out.println("\n\n" + PLAYER1 + "'s turn to move pieces in " + i + "!\n\n");
             TimeUnit.MILLISECONDS.sleep(750);
         }
 
         //Sets up the board for the second player
-        System.out.println(player2 + ", please choose how to enter your pieces.");
+        System.out.println(PLAYER2 + ", please choose how to enter your pieces.");
         while (true) {
             System.out.println("If you would like to create your own board, enter \"c\". If you would like a preset board, enter \"p\":");
             char firstChar = scan.next().toUpperCase().charAt(0);
             if (firstChar == 'C') {
-                gameBoard.setPlayerPieces(player2);
+                gameBoard.setPlayerPieces(PLAYER2);
                 break;
             }
             else if (firstChar == 'P') {
-                gameBoard.presetBoard(player2);
+                gameBoard.presetBoard(PLAYER2);
                 break;
             }
             System.out.println("Invalid entry.");
@@ -97,7 +97,7 @@ public class Game {
 
         //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
         for (int i = 5; i > 0; i--) {
-            System.out.println("\n\n" + player1 + "'s turn in " + i + "!\n\n");
+            System.out.println("\n\n" + PLAYER1 + "'s turn in " + i + "!\n\n");
             TimeUnit.MILLISECONDS.sleep(750);
         }
 
@@ -171,9 +171,9 @@ public class Game {
                 }
 
                 //moves for first player
-                if (currentPlayer.equals(player1)) {
+                if (currentPlayer.equals(PLAYER1)) {
                     try {
-                        printOutput = gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
+                        printOutput = gameBoard.move(currentPlayer, PLAYER2, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("\n" + e.getMessage() + "\n");
@@ -182,7 +182,7 @@ public class Game {
                 //moves for first player
                 else {
                     try {
-                        printOutput = gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
+                        printOutput = gameBoard.move(currentPlayer, PLAYER1, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("\n" + e.getMessage() + "\n");
@@ -192,11 +192,11 @@ public class Game {
             System.out.println("\n" + printOutput);
 
             //checks if the player has won
-            if (currentPlayer.equals(player1) && gameBoard.hasWon(player2)) {
+            if (currentPlayer.equals(PLAYER1) && gameBoard.hasWon(PLAYER2)) {
                 System.out.println("\n" + gameBoard);
                 System.out.println(currentPlayer + " has won the game!");
                 break;
-            } else if (gameBoard.hasWon(player1)) {
+            } else if (gameBoard.hasWon(PLAYER1)) {
                 System.out.println("\n" + gameBoard);
                 System.out.println(currentPlayer + " has won the game!");
                 break;
@@ -212,10 +212,10 @@ public class Game {
      * switch the current player
      */
     private void switchPlayer() {
-        if (currentPlayer.equals(player1)) {
-            currentPlayer = player2;
+        if (currentPlayer.equals(PLAYER1)) {
+            currentPlayer = PLAYER2;
         } else {
-            currentPlayer = player1;
+            currentPlayer = PLAYER1;
         }
     }
 }
