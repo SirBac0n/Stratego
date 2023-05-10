@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Game {
     private Board gameBoard;
@@ -36,8 +37,9 @@ public class Game {
     /**
      * runs a game of Stratego
      */
-    public void gameLoop() {
+    public void gameLoop() throws InterruptedException {
         gameBoard = new Board(player1,player2);
+        String printOutput;
 
         //Sets up the board for the two players.
         Scanner scan = new Scanner(System.in);
@@ -83,9 +85,10 @@ public class Game {
                 break;
             }
 
-            //prints out 20 lines so the previous board cannot be seen
-            for (int i = 0; i < 10; i++) {
-                System.out.println("\n");
+            //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
+            for (int i = 5; i > 0; i--) {
+                TimeUnit.MILLISECONDS.sleep(500);
+                System.out.println("\n" + currentPlayer + "'s turn in " + i + "!\n\n");
             }
 
             //prints out the board
@@ -128,20 +131,21 @@ public class Game {
                 }
                 if (currentPlayer.equals(player1)) {
                     try {
-                        gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
+                        printOutput = gameBoard.move(currentPlayer, player2, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("\n" + e.getMessage() + "\n");
                     }
                 } else {
                     try {
-                        gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
+                        printOutput = gameBoard.move(currentPlayer, player1, curRow, curCol, newRow, newCol);
                         break;
                     } catch (IllegalArgumentException e) {
                         System.out.println("\n" + e.getMessage() + "\n");
                     }
                 }
             }
+            System.out.println(printOutput);
 
 
 
