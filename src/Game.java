@@ -109,7 +109,7 @@ public class Game {
 
             //loops until gets a valid move
             while (true) {
-                System.out.print(currentPlayer + ", enter the location of the piece you would like to move with row, space, and then then column: ");
+                System.out.print(currentPlayer + ", enter the location of the piece you would like to move with row, space, and then column: ");
                 try (Scanner curLocation = new Scanner(scan.nextLine())){
                     curRow = curLocation.nextInt();
                     curCol = curLocation.nextInt();
@@ -134,7 +134,6 @@ public class Game {
                     continue;
                 }
 
-
                 System.out.print(currentPlayer + ", enter the location that you would like to move the piece to: ");
                 try (Scanner newLocation = new Scanner(scan.nextLine())) {
                     newRow = newLocation.nextInt();
@@ -143,6 +142,7 @@ public class Game {
                     System.out.println("\nNot a valid number\n");
                     continue;
                 }
+
                 //moves for first player
                 if (currentPlayer.equals(player1)) {
                     try {
