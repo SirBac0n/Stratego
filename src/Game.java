@@ -85,6 +85,8 @@ public class Game {
                 break;
             }
 
+            TimeUnit.SECONDS.sleep(2);
+
             //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
             for (int i = 5; i > 0; i--) {
                 System.out.println("\n\n" + currentPlayer + "'s turn in " + i + "!\n\n");
