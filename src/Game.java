@@ -18,9 +18,9 @@ public class Game {
         System.out.print("Player 1 enter your name: ");
         player1 = in.next();
 
-        System.out.print("Player 2 enter your name: ");
-        player2 = in.next();
-        /*
+        //System.out.print("Player 2 enter your name: ");
+        //player2 = in.next();
+
         while (true) {
             System.out.print("Player 2 enter your name: ");
             String name = in.next();
@@ -29,7 +29,7 @@ public class Game {
                 break;
             }
             System.out.println("The name you entered is already taken.");
-        }*/
+        }
         gameBoard = new Board(player1, player2);
         currentPlayer = player1;
     }
@@ -87,7 +87,7 @@ public class Game {
                 break;
             }
 
-            //As long as it is not the first turn runs this between turns code
+            //As long as it is not the first turn, this code runs between turns
             if (!firstTurn) {
                 TimeUnit.SECONDS.sleep(2);
 
