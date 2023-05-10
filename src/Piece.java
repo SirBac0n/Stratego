@@ -1,5 +1,3 @@
-import java.util.SplittableRandom;
-
 public class Piece {
     private String teamName;
 
