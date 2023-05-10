@@ -58,6 +58,12 @@ public class Game {
             }
         }
 
+        //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
+        for (int i = 5; i > 0; i--) {
+            System.out.println("\n\n" + player1 + "'s turn to move pieces in " + i + "!\n\n");
+            TimeUnit.MILLISECONDS.sleep(750);
+        }
+
         //Sets up the board for the second player
         System.out.println(player2 + ", please choose how to enter your pieces.");
         while (true) {
@@ -75,6 +81,11 @@ public class Game {
         }
         scan.nextLine();
 
+        //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
+        for (int i = 5; i > 0; i--) {
+            System.out.println("\n\n" + player1 + "'s turn in " + i + "!\n\n");
+            TimeUnit.MILLISECONDS.sleep(750);
+        }
 
         int curRow, curCol, newRow, newCol;
         while (true) {
@@ -94,7 +105,7 @@ public class Game {
             if (!firstTurn) {
                 TimeUnit.SECONDS.sleep(2);
 
-                //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
+                //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
                 for (int i = 5; i > 0; i--) {
                     System.out.println("\n\n" + currentPlayer + "'s turn in " + i + "!\n\n");
                     TimeUnit.MILLISECONDS.sleep(750);
