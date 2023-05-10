@@ -259,17 +259,18 @@ public class Board {
      * @param col2 column that the piece will be moved to
      * @throws IllegalArgumentException if the parameters are invalid
      */
-    public void move(String currentPlayer, String opponent, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
+    public String move(String currentPlayer, String opponent, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
         checkMoveConditions(currentPlayer, row1, col1, row2, col2);
         Piece current = getPiece(row1, col1);
         Piece newLocation = getPiece(row2, col2);
         if (newLocation.getTeamName().equals(opponent)) {
-            attack(row1, col1, row2, col2);
+            return attack(row1, col1, row2, col2);
         } else {
             Piece empty = new Piece("Empty",-3);
             board.get(row2).set(col2, current);
             board.get(row1).set(col1, empty);
         }
+        return currentPlayer + " moved to " + row2 + " " + col2 + ".";
     }
 
     /**
