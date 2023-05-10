@@ -45,9 +45,6 @@ public class Piece {
     public Piece(String teamName, int value) {
         this.value = value;
         this.teamName = teamName;
-
-        //This makes Obstacles have a false movable value as well.
-        //do we want empty pieces to be movable?
         movable = value > 0;
         pieceName = setPieceName(value);
     }
