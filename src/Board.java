@@ -617,29 +617,6 @@ public class Board {
         return false;
     }
 
-    /**
-     * method that automatically fills the board
-     * @param auto boolean variable that determines whether to automatically fill or not
-     */
-    public void autoFill(boolean auto,String player1, String player2) {
-        if (auto) {
-            Queue<Piece> pieces = createLinkedLists(player1);
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 10; j++) {
-                    Piece p = pieces.remove();
-                    setPiece(p,i,j);
-                }
-            }
-            Queue<Piece> pieces2 = createLinkedLists(player2);
-            for (int i = 6; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    Piece p = pieces2.remove();
-                    setPiece(p,i,j);
-                }
-            }
-        }
-    }
-
     public void presetBoard(String player) {
         ArrayList<ArrayList<Piece>> playerBoard;
 
