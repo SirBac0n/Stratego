@@ -39,7 +39,8 @@ public class Game {
      */
     public void gameLoop() throws InterruptedException {
         gameBoard = new Board(player1,player2);
-        String printOutput = "Make your first move.";
+        String printOutput = "";
+        boolean firstTurn = true;
 
         //Sets up the board for the two players.
         Scanner scan = new Scanner(System.in);
@@ -85,19 +86,24 @@ public class Game {
                 break;
             }
 
-            TimeUnit.SECONDS.sleep(2);
+            //As long as it is not the first turn runs this between turns code
+            if (!firstTurn) {
+                TimeUnit.SECONDS.sleep(2);
 
-            //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
-            for (int i = 5; i > 0; i--) {
-                System.out.println("\n\n" + currentPlayer + "'s turn in " + i + "!\n\n");
-                TimeUnit.MILLISECONDS.sleep(750);
+                //waits 5 seconds for the next player's turn and creates space so the previous board cannot be seen
+                for (int i = 5; i > 0; i--) {
+                    System.out.println("\n\n" + currentPlayer + "'s turn in " + i + "!\n\n");
+                    TimeUnit.MILLISECONDS.sleep(750);
+                }
             }
 
             //prints out the board
             System.out.println("\n" + gameBoard.toString(currentPlayer));
 
-            //Prints out the result of the last play
-            System.out.println(printOutput + "\n");
+            //Prints out the result of the last play if there was a last play (if this is not the first turn)
+            if (!firstTurn) {
+                System.out.println(printOutput + "\n");
+            }
 
             //loops until gets a valid move
             while (true) {
@@ -165,6 +171,7 @@ public class Game {
             }
 
             switchPlayer();
+            firstTurn = false;
         }
         scan.close();
     }
