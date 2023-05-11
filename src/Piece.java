@@ -53,7 +53,7 @@ public class Piece {
      * @return the name of the piece
      */
     public void setPieceName(int value) {
-        teamName = switch (value) {
+        pieceName = switch (value) {
             case -1 -> "Bomb";
             case 0 -> "Flag";
             case 1 -> "Spy";

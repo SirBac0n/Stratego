@@ -74,7 +74,7 @@ public class Game {
 
         //waits about 5 seconds for the next player's turn and creates space so the previous board cannot be seen
         for (int i = 5; i > 0; i--) {
-            System.out.println("\n\n" + PLAYER1 + "'s turn to move pieces in " + i + "!\n\n");
+            System.out.println("\n\n" + PLAYER2 + "'s turn to move pieces in " + i + "!\n\n");
             TimeUnit.MILLISECONDS.sleep(750);
         }
 
@@ -111,6 +111,7 @@ public class Game {
 
             //Checks to make sure that the current player can actually move
             if (!gameBoard.canPlay(currentPlayer)) {
+                System.out.println(gameBoard);
                 System.out.println(currentPlayer + " lost because they don't have any pieces they can move");
                 break;
             }
