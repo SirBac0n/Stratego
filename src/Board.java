@@ -137,7 +137,7 @@ public class Board {
      * @param col column to be checked
      * @return if the space is empty or not
      */
-    public boolean isFilled(int row, int col) {
+    private boolean isFilled(int row, int col) {
         return getPiece(row, col).getValue() != -3;
     }
 
@@ -273,7 +273,7 @@ public class Board {
      * @param col column of the piece
      * @return the location of the piece
      */
-    public Piece getPiece(int row, int col) {
+    private Piece getPiece(int row, int col) {
         return board.get(row).get(col);
     }
 
@@ -398,7 +398,7 @@ public class Board {
      * @param col the column to place the piece
      * @throws IllegalArgumentException if the parameters are invalid
      */
-    public void setPiece(Piece p, int row, int col) throws IllegalArgumentException {
+    private void setPiece(Piece p, int row, int col) throws IllegalArgumentException {
         if (row < 0 || row > 9) {
             throw new IllegalArgumentException("Invalid row index");
         } else if (col < 0 || col > 9) {
@@ -417,7 +417,7 @@ public class Board {
      * @param defenderRow row that the defender is located in
      * @param defenderCol column that the defender is located in
      */
-    public String attack(int attackerRow, int attackerCol, int defenderRow, int defenderCol) {
+    private String attack(int attackerRow, int attackerCol, int defenderRow, int defenderCol) {
         Piece attacker = getPiece(attackerRow, attackerCol);
         Piece defender = getPiece(defenderRow, defenderCol);
         Piece empty = new Piece("Empty", -3);
@@ -482,7 +482,7 @@ public class Board {
      * @param col2 column of the location the player is trying to move the piece to
      * @throws IllegalArgumentException if the attempted move is invalid
      */
-    public void checkMoveConditions(String currentPlayer, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
+    private void checkMoveConditions(String currentPlayer, int row1, int col1, int row2, int col2) throws IllegalArgumentException {
         if (row1 < 0 || row1 > 9 || col1 < 0 || col1 > 9) {
             throw new IllegalArgumentException("Invalid board position");
         }
