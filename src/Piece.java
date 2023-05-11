@@ -44,7 +44,7 @@ public class Piece {
         this.value = value;
         this.teamName = teamName;
         movable = value > 0;
-        pieceName = setPieceName(value);
+        setPieceName(value);
     }
 
     /**
@@ -52,8 +52,8 @@ public class Piece {
      * @param value value of the piece
      * @return the name of the piece
      */
-    public String setPieceName(int value) {
-        return switch (value) {
+    public void setPieceName(int value) {
+        teamName = switch (value) {
             case -1 -> "Bomb";
             case 0 -> "Flag";
             case 1 -> "Spy";
